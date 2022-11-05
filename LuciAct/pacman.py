@@ -1,13 +1,17 @@
 from mesa import Agent, Model
-from mesa.space import Grid
+from mesa.space import Grid as mGrid
 from mesa.time import RandomActivation
 from mesa.visualization.modules import CanvasGrid
 from mesa.visualization.ModularVisualization import ModularServer
+from pathfinding.core.diagonal_movement import DiagonalMovement
+from pathfinding.core.grid import Grid as pGrid
+from pathfinding.finder.a_star import AStarFinder
 
 
 class Ghost(Agent):
-    def  __init__(self, model, pos):
-        super(). __init__(model.next_id(), model)
+    def __init__(self, model, pos, cont):
+        super().__init__(model.next_id(), model)
+        self.cont = cont
         self.pos = pos
         self.matrix = [
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -24,27 +28,28 @@ class Ghost(Agent):
             [0,1,0,1,0,1,0,1,1,1,0,0,0,1,0,1,0],
             [0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-            ]
+        ]
     def step(self):
-        next_moves = self.model.grid.get_neighborhood(self.pos, moore=False)
-        next_move = self.random.choice(next_moves)
-        if(int(self.matrix[int(next_move[1])][int(next_move[0])])==1):
-            self.model.grid.move_agent(self, next_move)
-
-
+        red = pGrid(matrix=self.matrix)
+        start = red.node(8, 6)
+        end = red.node(2, 1)
+        finder = AStarFinder(diagonal_movement=DiagonalMovement.never)
+        path = finder.find_path(start, end, red)
+        print(path[0][self.cont])
+        next_move = path[0][self.cont]
+        self.model.grid.move_agent(self, next_move)
+        self.cont+=1
 
 class WallBlock(Agent):
-    def  __init__(self, model, pos):
-        super(). __init__(model.next_id(), model)
+    def __init__(self, model, pos):
+        super().__init__(model.next_id(), model)
         self.pos = pos
 
-
-
 class Maze(Model):
-    def  __init__(self):
-        super(). __init__()
+    def __init__(self):
+        super().__init__()
         self.schedule = RandomActivation(self)
-        self.grid = Grid(17, 14, torus=False)
+        self.grid = mGrid(17, 14, torus=False)
         matrix = [
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0],
@@ -60,9 +65,9 @@ class Maze(Model):
             [0,1,0,1,0,1,0,1,1,1,0,0,0,1,0,1,0],
             [0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-            ]
+        ]
 
-        ghost = Ghost(self, (8, 6))
+        ghost = Ghost(self, (8, 6),0)
         self.grid.place_agent(ghost, ghost.pos)
         self.schedule.add(ghost)
 
