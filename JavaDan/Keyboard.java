@@ -18,6 +18,8 @@ public class Keyboard extends JApplet
    boolean focussed = false; // True when this applet has input focus.
    DisplayPanel canvas; 
 
+
+
    public void init() {
      
       Rotate = 0;
@@ -48,12 +50,21 @@ public class Keyboard extends JApplet
       setContentPane(canvas); // install it as the applet's content pane.
 
       canvas.setBackground(Color.white); // Set the background color of the canvas.
-
       canvas.addFocusListener(this); // Set up the applet to listen for events
       canvas.addKeyListener(this); // from the canvas.
       canvas.addMouseListener(this);
 
    } 
+
+   public void focusGained(FocusEvent e) {
+    // The applet now has the input focus.
+    focussed = true;
+ }
+
+ public void focusLost(FocusEvent e) {
+    // The applet has now lost the input focus.
+    focussed = false;
+ }
 
    class DisplayPanel extends JPanel {
       
@@ -61,20 +72,7 @@ public class Keyboard extends JApplet
       public void paintComponent(Graphics g) {
 
          super.paintComponent(g); // Fills the panel with its
-                                  // background color, which is white.
 
-         if (focussed)
-            g.setColor(Color.black);
-         else
-            g.setColor(Color.lightGray);
-
-         int width = getSize().width; // Width of the applet.
-         int height = getSize().height; // Height of the applet.
-         g.drawRect(0, 0, width - 1, height - 1);
-         g.drawRect(1, 1, width - 3, height - 3);
-         g.drawRect(2, 2, width - 5, height - 5);
-
-         /* Draw the plane. */
          g.setColor(shipColor);
 
          int[] x = new int[26];
@@ -95,53 +93,21 @@ public class Keyboard extends JApplet
 
    } // end nested class DisplayPanel
 
-   public void focusGained(FocusEvent evt) {
-      // The applet now has the input focus.
-      focussed = true;
-   }
-
-   public void focusLost(FocusEvent evt) {
-      // The applet has now lost the input focus.
-      focussed = false;
-   }
-
-   public void keyTyped(KeyEvent evt) {
-
-      char key = evt.getKeyChar(); // The character typed.
-
-      if (key == 'b') {
-         shipColor = Color.GRAY;
-         canvas.repaint();
-      } else if (key == 'g') {
-         shipColor = Color.GRAY;
-         canvas.repaint();
-      } else if (key == 'r') {
-         shipColor = Color.GRAY;
-         canvas.repaint();
-      } else if (key == 'k') {
-         shipColor = Color.GRAY;
-         canvas.repaint();
-      }
-
-   } 
-
    public void calculate() {
       
       for (int i = 0; i < 26; i++) {
          
          beggin_x[i] = beggin_x[i] - start_x;
          beggin_y[i] = beggin_y[i] - start_y;
-         beggin_z[i] = 1;
+         beggin_z[i] = 50;
 
          wing_x[i] = beggin_x[i] * Scaling;
          wing_y[i] = beggin_y[i] * Scaling;
-         wing_z[i] = 1;
+         wing_z[i] = 10;
          
          float temp_x = wing_x[i];
-         wing_x[i] = (float) ((Math.cos(Math.toRadians(Rotate)) * wing_x[i])
-               - (Math.sin(Math.toRadians(Rotate)) * wing_y[i]));
-         wing_y[i] = (float) ((Math.sin(Math.toRadians(Rotate)) * temp_x)
-               + (Math.cos(Math.toRadians(Rotate)) * wing_y[i]));
+         wing_x[i] = (float) ((Math.cos(Math.toRadians(Rotate)) * wing_x[i]) - (Math.sin(Math.toRadians(Rotate)) * wing_y[i]));
+         wing_y[i] = (float) ((Math.sin(Math.toRadians(Rotate)) * temp_x) + (Math.cos(Math.toRadians(Rotate)) * wing_y[i]));
          wing_z[i] = 1;
          
          wing_x[i] = wing_x[i] + start_x;
@@ -155,9 +121,25 @@ public class Keyboard extends JApplet
 
    }
 
-   public void keyPressed(KeyEvent evt) {
+   public void keyTyped(KeyEvent e) {
+
+    char key = e.getKeyChar(); // The character typed.
+
+    if (key == 'b') { shipColor = Color.GRAY;
+       canvas.repaint();
+    } else if (key == 'g') {shipColor = Color.GRAY;
+       canvas.repaint();
+    } else if (key == 'r') {shipColor = Color.GRAY;
+       canvas.repaint();
+    } else if (key == 'k') {shipColor = Color.GRAY;
+       canvas.repaint();
+    }
+
+ } 
+
+   public void keyPressed(KeyEvent e) {
       
-      int key = evt.getKeyCode(); // keyboard code for the key that was pressed
+      int key = e.getKeyCode(); // keyboard code for the key that was pressed
 
       if (key == KeyEvent.VK_LEFT) {
          calculate();
@@ -165,16 +147,16 @@ public class Keyboard extends JApplet
          double radian = Math.toRadians(180 - (90 + Rotate));
 
          for (int i = 0; i < 26; i++) {
-            wing_x[i] -= (float) 8 * (-Math.cos(radian));
-            wing_y[i] -= (float) 8 * Math.sin(radian);
+            wing_x[i] -= (float) 5 * (-Math.cos(radian));
+            wing_y[i] -= (float) 5 * Math.sin(radian);
             wing_z[i] = 1;
-            beggin_x[i] -= (float) 8 * (-Math.cos(radian));
-            beggin_y[i] -= (float) 8 * Math.sin(radian);
+            beggin_x[i] -= (float) 5 * (-Math.cos(radian));
+            beggin_y[i] -= (float) 5 * Math.sin(radian);
             beggin_z[i] = 1;
          }
 
-         start_x -= (float) 8 * (-Math.cos(radian));
-         start_y -= (float) 8 * Math.sin(radian);
+         start_x -= (float) 5 * (-Math.cos(radian));
+         start_y -= (float) 5 * Math.sin(radian);
          start_z = 1;
 
 
@@ -186,16 +168,16 @@ public class Keyboard extends JApplet
          double radian = Math.toRadians(180 - (90 + Rotate));
 
          for (int i = 0; i < 26; i++) {
-            wing_x[i] += (float) 8 * (-Math.cos(radian));
-            wing_y[i] += (float) 8 * Math.sin(radian);
+            wing_x[i] += (float) 5 * (-Math.cos(radian));
+            wing_y[i] += (float) 5 * Math.sin(radian);
             wing_z[i] = 1;
-            beggin_x[i] += (float) 8 * (-Math.cos(radian));
-            beggin_y[i] += (float) 8 * Math.sin(radian);
+            beggin_x[i] += (float) 5 * (-Math.cos(radian));
+            beggin_y[i] += (float) 5 * Math.sin(radian);
             beggin_z[i] = 1;
          }
 
-         start_x += (float) 8 * (-Math.cos(radian));
-         start_y += (float) 8 * Math.sin(radian);
+         start_x += (float) 5 * (-Math.cos(radian));
+         start_y += (float) 5 * Math.sin(radian);
          start_z = 1;
 
          canvas.repaint();
@@ -206,16 +188,16 @@ public class Keyboard extends JApplet
          double radians = Math.toRadians(Rotate);
 
          for (int i = 0; i < 26; i++) {
-            wing_x[i] += (float) 8 * Math.cos(radians);
-            wing_y[i] += (float) 8 * Math.sin(radians);
+            wing_x[i] += (float) 5 * Math.cos(radians);
+            wing_y[i] += (float) 5 * Math.sin(radians);
             wing_z[i] = 1;
-            beggin_x[i] += (float) 8 * Math.cos(radians);
-            beggin_y[i] += (float) 8 * Math.sin(radians);
+            beggin_x[i] += (float) 5 * Math.cos(radians);
+            beggin_y[i] += (float) 5 * Math.sin(radians);
             beggin_z[i] = 1;
          }
 
-         start_x += (float) 8 * Math.cos(radians);
-         start_y += (float) 8 * Math.sin(radians);
+         start_x += (float) 5 * Math.cos(radians);
+         start_y += (float) 5 * Math.sin(radians);
          start_z = 1;
 
 
@@ -227,16 +209,16 @@ public class Keyboard extends JApplet
          double radians = Math.toRadians(Rotate);
 
          for (int i = 0; i < 26; i++) {
-            wing_x[i] -= (float) 8 * Math.cos(radians);
-            wing_y[i] -= (float) 8 * Math.sin(radians);
+            wing_x[i] -= (float) 5 * Math.cos(radians);
+            wing_y[i] -= (float) 5 * Math.sin(radians);
             wing_z[i] = 1;
-            beggin_x[i] -= (float) 8 * Math.cos(radians);
-            beggin_y[i] -= (float) 8 * Math.sin(radians);
+            beggin_x[i] -= (float) 5 * Math.cos(radians);
+            beggin_y[i] -= (float) 5 * Math.sin(radians);
             beggin_z[i] = 1;
          }
 
-         start_x -= (float) 8 * Math.cos(radians);
-         start_y -= (float) 8 * Math.sin(radians);
+         start_x -= (float) 5 * Math.cos(radians);
+         start_y -= (float) 5 * Math.sin(radians);
          start_z = 1;
 
 
@@ -261,12 +243,12 @@ public class Keyboard extends JApplet
             if (Rotate == 360)
                Rotate = 0;
             else
-               Rotate += 10;
+               Rotate += 20;
          } else {
             if (Rotate == 0)
                Rotate = 360;
             else
-               Rotate -= 10;
+               Rotate -= 20;
          }
 
          calculate();
@@ -275,22 +257,19 @@ public class Keyboard extends JApplet
       }
    } 
 
-   public void keyReleased(KeyEvent evt) {
+   public void keyReleased(KeyEvent e) {
    }
+   public void mouseEntered(MouseEvent e) {
+  } 
+  public void mouseExited(MouseEvent e) {
+  } 
 
-   public void mousePressed(MouseEvent evt) {
-      
+  public void mouseReleased(MouseEvent e) {
+  } 
+  public void mouseClicked(MouseEvent e) {
+  }
+   public void mousePressed(MouseEvent e) {
       canvas.requestFocus();
-   }
-
-   public void mouseEntered(MouseEvent evt) {
-   } 
-   public void mouseExited(MouseEvent evt) {
-   } 
-
-   public void mouseReleased(MouseEvent evt) {
-   } 
-   public void mouseClicked(MouseEvent evt) {
    }
 
 } 

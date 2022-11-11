@@ -7,7 +7,7 @@ class Wing{
       applet.init();
 
       // Construct a JFrame.
-      final JFrame frame = new JFrame("Keyboard and Focus Demo");
+      final JFrame frame = new JFrame("X-wing simulator");
 
       // Transfer the applet's context pane to the JFrame.
       frame.setContentPane(applet.getContentPane());
