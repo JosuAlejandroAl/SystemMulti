@@ -5,51 +5,39 @@ import javax.swing.*;
 
 public class Keyboard extends JApplet
       implements KeyListener, FocusListener, MouseListener {
-   // (Note: MouseListener is implemented only so that
-   // the applet can request the input focus when
-   // the user clicks on it.)
-
-   Color shipColor; // The color of the square.
+  
+  //status values
+   Color shipColor; 
    double Rotate;
    float Scaling;
-
-   float centroid_x, centroid_y, centroid_z;
-
-   float[] plane_x, plane_y, plane_z; // Coordinates of transformed plane
-
-   float[] original_plane_x, original_plane_y, original_plane_z; // Coordinates of original plane
+  //viariables coordinate declaration
+   float start_x, start_y, start_z;
+   float[] wing_x, wing_y, wing_z; 
+   float[] beggin_x, beggin_y, beggin_z; 
 
    boolean focussed = false; // True when this applet has input focus.
-
-   DisplayPanel canvas; // The drawing surface on which the applet draws,
-                        // belonging to a nested class DisplayPanel, which
-                        // is defined below.
+   DisplayPanel canvas; 
 
    public void init() {
-      // Initialize the applet; set it up to receive keyboard
-      // and focus events. Place the square in the middle of
-      // the applet, and make the initial color of the square red.
-      // Then, set up the drawing surface.
+     
       Rotate = 0;
       Scaling = 1;
-      centroid_x = 59.2409475603279f;
-      centroid_y = 76.0100070402073f;
-      centroid_z = 1f;
+      start_x = 35.25f;
+      start_y = 55.25f;
+      start_z = 1f;
 
-      plane_x = new float[] {44, 44, 37, 37, 12, 12, 11, 11, 38, 38, 40, 40, 49, 49, 52, 52, 75, 78, 78, 77, 77, 52, 52, 46, 46, 44}; //43
+      wing_x = new float[] {44, 44, 37, 37, 12, 12, 11, 11, 38, 38, 40, 40, 49, 49, 52, 52, 75, 78, 78, 77, 77, 52, 52, 46, 46, 44}; 
+      wing_y = new float[] { 4, 41, 41, 43, 43, 22, 22, 50, 55, 60,60, 54, 54, 60, 60, 55, 50, 50, 22, 22, 43, 43, 41, 41, 4, 4 };
+      wing_z = new float[] { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};//26
 
-      plane_y = new float[] { 4, 41, 41, 43, 43, 22, 22, 50, 55, 60,60, 54, 54, 60, 60, 55, 50, 50, 22, 22, 43, 43, 41, 41, 4, 4 };
-
-      plane_z = new float[] { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};//26
-
-      original_plane_x = new float[26];
-      original_plane_y = new float[26];
-      original_plane_z = new float[26];
+      beggin_x = new float[26];
+      beggin_y = new float[26];
+      beggin_z = new float[26];
 
       for (int i = 0; i < 26; i++) {
-         original_plane_x[i] = plane_x[i];
-         original_plane_y[i] = plane_y[i];
-         original_plane_z[i] = plane_z[i];
+         beggin_x[i] = wing_x[i];
+         beggin_y[i] = wing_y[i];
+         beggin_z[i] = wing_z[i];
       }
 
       setSize(1000, 600);
@@ -65,27 +53,18 @@ public class Keyboard extends JApplet
       canvas.addKeyListener(this); // from the canvas.
       canvas.addMouseListener(this);
 
-   } // end init();
+   } 
 
    class DisplayPanel extends JPanel {
-      // An object belonging to this nested class is used as
-      // the content pane of the applet. It displays the
-      // moving square on a white background with a border
-      // that changes color depending on whether this
-      // component has the input focus or not.
+      
 
       public void paintComponent(Graphics g) {
 
          super.paintComponent(g); // Fills the panel with its
                                   // background color, which is white.
 
-         /*
-          * Draw a 3-pixel border, colored cyan if the applet has the
-          * keyboard focus, or in light gray if it does not.
-          */
-
          if (focussed)
-            g.setColor(Color.cyan);
+            g.setColor(Color.black);
          else
             g.setColor(Color.lightGray);
 
@@ -102,120 +81,82 @@ public class Keyboard extends JApplet
          int[] y = new int[26];
 
          for (int i = 0; i < 26; i++) {
-            x[i] = (int) plane_x[i];
-            y[i] = (int) plane_y[i];
+            x[i] = (int) wing_x[i];
+            y[i] = (int) wing_y[i];
          }
 
          g.drawPolyline(x, y, 26);
 
-         // g.setColor(Color.MAGENTA);
-         // g.drawPolyline(mem_x, mem_y, 43);
-         // g.drawLine((int) centroid_x, (int) centroid_y, (int) centroid_x, (int)
-         // centroid_y);
-
-         /* If the applet does not have input focus, print a message. */
          if (!focussed) {
             g.setColor(Color.magenta);
-            g.drawString("Click to activate", 7, 20);
          }
 
       } // end paintComponent()
 
    } // end nested class DisplayPanel
 
-   // ------------------- Event handling methods ----------------------
    public void focusGained(FocusEvent evt) {
       // The applet now has the input focus.
       focussed = true;
-      canvas.repaint(); // redraw with cyan border
    }
 
    public void focusLost(FocusEvent evt) {
       // The applet has now lost the input focus.
       focussed = false;
-      canvas.repaint(); // redraw without cyan border
    }
 
    public void keyTyped(KeyEvent evt) {
-      // The user has typed a character, while the
-      // applet has the input focus. If it is one
-      // of the keys that represents a color, change
-      // the color of the square and redraw the applet.
 
-      char ch = evt.getKeyChar(); // The character typed.
+      char key = evt.getKeyChar(); // The character typed.
 
-      if (ch == 'B' || ch == 'b') {
+      if (key == 'b') {
          shipColor = Color.GRAY;
          canvas.repaint();
-      } else if (ch == 'G' || ch == 'g') {
+      } else if (key == 'g') {
          shipColor = Color.GRAY;
          canvas.repaint();
-      } else if (ch == 'R' || ch == 'r') {
+      } else if (key == 'r') {
          shipColor = Color.GRAY;
          canvas.repaint();
-      } else if (ch == 'K' || ch == 'k') {
+      } else if (key == 'k') {
          shipColor = Color.GRAY;
          canvas.repaint();
       }
 
-   } // end keyTyped()
+   } 
 
    public void calculate() {
-
-      // Move centroid from point P to origin
-      // Scale figure
-      // Rotate figure
-      // return centroid to positon P
-      ////Time Complexity O(1) (There are only 43 elements, or 0(n) depending on the number of points given)
       
       for (int i = 0; i < 26; i++) {
-         // Translation
-         // [x']   | 1 0 dx |    | x |  | x + dx|
-         // [y'] = | 0 1 dy | x | y | = | y + dy|
-         // [1]    | 0 0 1  |   | 1 | = | 1 |
-         original_plane_x[i] = original_plane_x[i] - centroid_x;
-         original_plane_y[i] = original_plane_y[i] - centroid_y;
-         original_plane_z[i] = 1;
-
-         // Scaling
-         // [x']   | sx 0 0 |    | x |  | x *sx|
-         // [y'] = | 0 xy 0 | x | y | = | y*sy|
-         // [1]    | 0 0 1  |   | 1 | = | 1 |
-
-         plane_x[i] = original_plane_x[i] * Scaling;
-         plane_y[i] = original_plane_y[i] * Scaling;
-         plane_z[i] = 1;
-
-         // Rotate
-         // [x']   | cos -sin 0 |    | x |  | cosx-siny|
-         // [y'] = | sin cos 0 | x | y | = | sinx+cosy|
-         // [1]    | 0    0  1 |   | 1 | = | 1 |
          
-         float temp_x = plane_x[i];
-         plane_x[i] = (float) ((Math.cos(Math.toRadians(Rotate)) * plane_x[i])
-               - (Math.sin(Math.toRadians(Rotate)) * plane_y[i]));
-         plane_y[i] = (float) ((Math.sin(Math.toRadians(Rotate)) * temp_x)
-               + (Math.cos(Math.toRadians(Rotate)) * plane_y[i]));
-         plane_z[i] = 1;
+         beggin_x[i] = beggin_x[i] - start_x;
+         beggin_y[i] = beggin_y[i] - start_y;
+         beggin_z[i] = 1;
+
+         wing_x[i] = beggin_x[i] * Scaling;
+         wing_y[i] = beggin_y[i] * Scaling;
+         wing_z[i] = 1;
          
-         plane_x[i] = plane_x[i] + centroid_x;
-         plane_y[i] = plane_y[i] + centroid_y;
-         plane_z[i] = 1;
+         float temp_x = wing_x[i];
+         wing_x[i] = (float) ((Math.cos(Math.toRadians(Rotate)) * wing_x[i])
+               - (Math.sin(Math.toRadians(Rotate)) * wing_y[i]));
+         wing_y[i] = (float) ((Math.sin(Math.toRadians(Rotate)) * temp_x)
+               + (Math.cos(Math.toRadians(Rotate)) * wing_y[i]));
+         wing_z[i] = 1;
+         
+         wing_x[i] = wing_x[i] + start_x;
+         wing_y[i] = wing_y[i] + start_y;
+         wing_z[i] = 1;
  
-         original_plane_x[i] = original_plane_x[i] + centroid_x;
-         original_plane_y[i] = original_plane_y[i] + centroid_y;
-         original_plane_z[i] = 1;
+         beggin_x[i] = beggin_x[i] + start_x;
+         beggin_y[i] = beggin_y[i] + start_y;
+         beggin_z[i] = 1;
       }
 
    }
 
    public void keyPressed(KeyEvent evt) {
-      // Called when the user has pressed a key, which can be
-      // a special key such as an arrow key. If the key pressed
-      // was one of the arrow keys, move the square (but make sure
-      // that it doesn't move off the edge, allowing for a
-      // 3-pixel border all around the applet).
-
+      
       int key = evt.getKeyCode(); // keyboard code for the key that was pressed
 
       if (key == KeyEvent.VK_LEFT) {
@@ -224,17 +165,17 @@ public class Keyboard extends JApplet
          double radian = Math.toRadians(180 - (90 + Rotate));
 
          for (int i = 0; i < 26; i++) {
-            plane_x[i] -= (float) 8 * (-Math.cos(radian));
-            plane_y[i] -= (float) 8 * Math.sin(radian);
-            plane_z[i] = 1;
-            original_plane_x[i] -= (float) 8 * (-Math.cos(radian));
-            original_plane_y[i] -= (float) 8 * Math.sin(radian);
-            original_plane_z[i] = 1;
+            wing_x[i] -= (float) 8 * (-Math.cos(radian));
+            wing_y[i] -= (float) 8 * Math.sin(radian);
+            wing_z[i] = 1;
+            beggin_x[i] -= (float) 8 * (-Math.cos(radian));
+            beggin_y[i] -= (float) 8 * Math.sin(radian);
+            beggin_z[i] = 1;
          }
 
-         centroid_x -= (float) 8 * (-Math.cos(radian));
-         centroid_y -= (float) 8 * Math.sin(radian);
-         centroid_z = 1;
+         start_x -= (float) 8 * (-Math.cos(radian));
+         start_y -= (float) 8 * Math.sin(radian);
+         start_z = 1;
 
 
          canvas.repaint();
@@ -245,17 +186,17 @@ public class Keyboard extends JApplet
          double radian = Math.toRadians(180 - (90 + Rotate));
 
          for (int i = 0; i < 26; i++) {
-            plane_x[i] += (float) 8 * (-Math.cos(radian));
-            plane_y[i] += (float) 8 * Math.sin(radian);
-            plane_z[i] = 1;
-            original_plane_x[i] += (float) 8 * (-Math.cos(radian));
-            original_plane_y[i] += (float) 8 * Math.sin(radian);
-            original_plane_z[i] = 1;
+            wing_x[i] += (float) 8 * (-Math.cos(radian));
+            wing_y[i] += (float) 8 * Math.sin(radian);
+            wing_z[i] = 1;
+            beggin_x[i] += (float) 8 * (-Math.cos(radian));
+            beggin_y[i] += (float) 8 * Math.sin(radian);
+            beggin_z[i] = 1;
          }
 
-         centroid_x += (float) 8 * (-Math.cos(radian));
-         centroid_y += (float) 8 * Math.sin(radian);
-         centroid_z = 1;
+         start_x += (float) 8 * (-Math.cos(radian));
+         start_y += (float) 8 * Math.sin(radian);
+         start_z = 1;
 
          canvas.repaint();
       } else if (key == KeyEvent.VK_UP) {
@@ -265,17 +206,17 @@ public class Keyboard extends JApplet
          double radians = Math.toRadians(Rotate);
 
          for (int i = 0; i < 26; i++) {
-            plane_x[i] += (float) 8 * Math.cos(radians);
-            plane_y[i] += (float) 8 * Math.sin(radians);
-            plane_z[i] = 1;
-            original_plane_x[i] += (float) 8 * Math.cos(radians);
-            original_plane_y[i] += (float) 8 * Math.sin(radians);
-            original_plane_z[i] = 1;
+            wing_x[i] += (float) 8 * Math.cos(radians);
+            wing_y[i] += (float) 8 * Math.sin(radians);
+            wing_z[i] = 1;
+            beggin_x[i] += (float) 8 * Math.cos(radians);
+            beggin_y[i] += (float) 8 * Math.sin(radians);
+            beggin_z[i] = 1;
          }
 
-         centroid_x += (float) 8 * Math.cos(radians);
-         centroid_y += (float) 8 * Math.sin(radians);
-         centroid_z = 1;
+         start_x += (float) 8 * Math.cos(radians);
+         start_y += (float) 8 * Math.sin(radians);
+         start_z = 1;
 
 
          canvas.repaint();
@@ -286,30 +227,30 @@ public class Keyboard extends JApplet
          double radians = Math.toRadians(Rotate);
 
          for (int i = 0; i < 26; i++) {
-            plane_x[i] -= (float) 8 * Math.cos(radians);
-            plane_y[i] -= (float) 8 * Math.sin(radians);
-            plane_z[i] = 1;
-            original_plane_x[i] -= (float) 8 * Math.cos(radians);
-            original_plane_y[i] -= (float) 8 * Math.sin(radians);
-            original_plane_z[i] = 1;
+            wing_x[i] -= (float) 8 * Math.cos(radians);
+            wing_y[i] -= (float) 8 * Math.sin(radians);
+            wing_z[i] = 1;
+            beggin_x[i] -= (float) 8 * Math.cos(radians);
+            beggin_y[i] -= (float) 8 * Math.sin(radians);
+            beggin_z[i] = 1;
          }
 
-         centroid_x -= (float) 8 * Math.cos(radians);
-         centroid_y -= (float) 8 * Math.sin(radians);
-         centroid_z = 1;
+         start_x -= (float) 8 * Math.cos(radians);
+         start_y -= (float) 8 * Math.sin(radians);
+         start_z = 1;
 
 
          canvas.repaint();
       } else if (key == KeyEvent.VK_R || key == KeyEvent.VK_F) {
 
          if (key == KeyEvent.VK_R) {
-            if (Scaling > 2)
+            if (Scaling > 4)
                return;
-            Scaling += 0.1;
+            Scaling += 1;
          } else {
             if (Scaling < 0.4)
                return;
-            Scaling -= 0.1;
+            Scaling -= 1;
          }
 
          calculate();
@@ -317,13 +258,13 @@ public class Keyboard extends JApplet
          canvas.repaint();
       } else if (key == KeyEvent.VK_E || key == KeyEvent.VK_D) {
          if (key == KeyEvent.VK_D) {
-            if (Rotate == 350)
+            if (Rotate == 360)
                Rotate = 0;
             else
                Rotate += 10;
          } else {
             if (Rotate == 0)
-               Rotate = 350;
+               Rotate = 360;
             else
                Rotate -= 10;
          }
@@ -332,28 +273,24 @@ public class Keyboard extends JApplet
 
          canvas.repaint();
       }
-   } // end keyPressed()
+   } 
 
    public void keyReleased(KeyEvent evt) {
-      // empty method, required by the KeyListener Interface
    }
 
    public void mousePressed(MouseEvent evt) {
-      // Request that the input focus be given to the
-      // canvas when the user clicks on the applet.
+      
       canvas.requestFocus();
    }
 
    public void mouseEntered(MouseEvent evt) {
-   } // Required by the
-
+   } 
    public void mouseExited(MouseEvent evt) {
-   } // MouseListener
+   } 
 
    public void mouseReleased(MouseEvent evt) {
-   } // interface.
-
+   } 
    public void mouseClicked(MouseEvent evt) {
    }
 
-} // end class Keyboard
+} 
