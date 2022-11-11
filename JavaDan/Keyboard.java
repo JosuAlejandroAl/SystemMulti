@@ -9,10 +9,9 @@ public class Keyboard extends JApplet
    // the applet can request the input focus when
    // the user clicks on it.)
 
-   Color planeColor; // The color of the square.
-
-   double rotation;
-   float scale;
+   Color shipColor; // The color of the square.
+   double Rotate;
+   float Scaling;
 
    float centroid_x, centroid_y, centroid_z;
 
@@ -31,8 +30,8 @@ public class Keyboard extends JApplet
       // and focus events. Place the square in the middle of
       // the applet, and make the initial color of the square red.
       // Then, set up the drawing surface.
-      rotation = 0;
-      scale = 1;
+      Rotate = 0;
+      Scaling = 1;
       centroid_x = 59.2409475603279f;
       centroid_y = 76.0100070402073f;
       centroid_z = 1f;
@@ -55,7 +54,7 @@ public class Keyboard extends JApplet
 
       setSize(1000, 600);
 
-      planeColor = Color.red;
+      shipColor = Color.GRAY;
 
       canvas = new DisplayPanel(); // Create drawing surface and
       setContentPane(canvas); // install it as the applet's content pane.
@@ -97,7 +96,7 @@ public class Keyboard extends JApplet
          g.drawRect(2, 2, width - 5, height - 5);
 
          /* Draw the plane. */
-         g.setColor(planeColor);
+         g.setColor(shipColor);
 
          int[] x = new int[26];
          int[] y = new int[26];
@@ -146,16 +145,16 @@ public class Keyboard extends JApplet
       char ch = evt.getKeyChar(); // The character typed.
 
       if (ch == 'B' || ch == 'b') {
-         planeColor = Color.blue;
+         shipColor = Color.GRAY;
          canvas.repaint();
       } else if (ch == 'G' || ch == 'g') {
-         planeColor = Color.green;
+         shipColor = Color.GRAY;
          canvas.repaint();
       } else if (ch == 'R' || ch == 'r') {
-         planeColor = Color.red;
+         shipColor = Color.GRAY;
          canvas.repaint();
       } else if (ch == 'K' || ch == 'k') {
-         planeColor = Color.black;
+         shipColor = Color.GRAY;
          canvas.repaint();
       }
 
@@ -183,20 +182,20 @@ public class Keyboard extends JApplet
          // [y'] = | 0 xy 0 | x | y | = | y*sy|
          // [1]    | 0 0 1  |   | 1 | = | 1 |
 
-         plane_x[i] = original_plane_x[i] * scale;
-         plane_y[i] = original_plane_y[i] * scale;
+         plane_x[i] = original_plane_x[i] * Scaling;
+         plane_y[i] = original_plane_y[i] * Scaling;
          plane_z[i] = 1;
 
-         // Rotation
+         // Rotate
          // [x']   | cos -sin 0 |    | x |  | cosx-siny|
          // [y'] = | sin cos 0 | x | y | = | sinx+cosy|
          // [1]    | 0    0  1 |   | 1 | = | 1 |
          
          float temp_x = plane_x[i];
-         plane_x[i] = (float) ((Math.cos(Math.toRadians(rotation)) * plane_x[i])
-               - (Math.sin(Math.toRadians(rotation)) * plane_y[i]));
-         plane_y[i] = (float) ((Math.sin(Math.toRadians(rotation)) * temp_x)
-               + (Math.cos(Math.toRadians(rotation)) * plane_y[i]));
+         plane_x[i] = (float) ((Math.cos(Math.toRadians(Rotate)) * plane_x[i])
+               - (Math.sin(Math.toRadians(Rotate)) * plane_y[i]));
+         plane_y[i] = (float) ((Math.sin(Math.toRadians(Rotate)) * temp_x)
+               + (Math.cos(Math.toRadians(Rotate)) * plane_y[i]));
          plane_z[i] = 1;
          
          plane_x[i] = plane_x[i] + centroid_x;
@@ -222,7 +221,7 @@ public class Keyboard extends JApplet
       if (key == KeyEvent.VK_LEFT) {
          calculate();
 
-         double radian = Math.toRadians(180 - (90 + rotation));
+         double radian = Math.toRadians(180 - (90 + Rotate));
 
          for (int i = 0; i < 26; i++) {
             plane_x[i] -= (float) 8 * (-Math.cos(radian));
@@ -243,7 +242,7 @@ public class Keyboard extends JApplet
 
          calculate();
 
-         double radian = Math.toRadians(180 - (90 + rotation));
+         double radian = Math.toRadians(180 - (90 + Rotate));
 
          for (int i = 0; i < 26; i++) {
             plane_x[i] += (float) 8 * (-Math.cos(radian));
@@ -263,7 +262,7 @@ public class Keyboard extends JApplet
 
          calculate();
 
-         double radians = Math.toRadians(rotation);
+         double radians = Math.toRadians(Rotate);
 
          for (int i = 0; i < 26; i++) {
             plane_x[i] += (float) 8 * Math.cos(radians);
@@ -284,7 +283,7 @@ public class Keyboard extends JApplet
 
          calculate();
 
-         double radians = Math.toRadians(rotation);
+         double radians = Math.toRadians(Rotate);
 
          for (int i = 0; i < 26; i++) {
             plane_x[i] -= (float) 8 * Math.cos(radians);
@@ -304,13 +303,13 @@ public class Keyboard extends JApplet
       } else if (key == KeyEvent.VK_R || key == KeyEvent.VK_F) {
 
          if (key == KeyEvent.VK_R) {
-            if (scale > 2)
+            if (Scaling > 2)
                return;
-            scale += 0.1;
+            Scaling += 0.1;
          } else {
-            if (scale < 0.4)
+            if (Scaling < 0.4)
                return;
-            scale -= 0.1;
+            Scaling -= 0.1;
          }
 
          calculate();
@@ -318,15 +317,15 @@ public class Keyboard extends JApplet
          canvas.repaint();
       } else if (key == KeyEvent.VK_E || key == KeyEvent.VK_D) {
          if (key == KeyEvent.VK_D) {
-            if (rotation == 350)
-               rotation = 0;
+            if (Rotate == 350)
+               Rotate = 0;
             else
-               rotation += 10;
+               Rotate += 10;
          } else {
-            if (rotation == 0)
-               rotation = 350;
+            if (Rotate == 0)
+               Rotate = 350;
             else
-               rotation -= 10;
+               Rotate -= 10;
          }
 
          calculate();
