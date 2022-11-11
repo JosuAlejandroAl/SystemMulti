@@ -1,26 +1,43 @@
-import java.awt.*;
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-class Wing extends JPanel {
-    public void paintComponent(Graphics g) {
-        int [] x = {443, 443, 371, 371, 128, 128, 116, 116, 380, 380, 406, 405, 495, 494, 520, 520, 756, 784, 784, 772, 772, 528, 528, 467, 467, 443};
-        int [] y = {40, 416, 416, 434, 434, 223, 223, 505, 556, 600,600, 540, 540, 600, 600, 556, 505, 505, 223, 223, 434, 434, 416, 416, 40, 40};
-        g.drawPolygon(x, y, 26);
-        g.setColor(Color.BLUE);
-        g.fillPolygon(x, y, 26);
-        //Polygon p = new Polygon();
-        //g.fillPolygon(p);
+class Wing{
+      public static void main(String[] args) {
+      Keyboard applet = new Keyboard();
+      applet.init();
+
+      // Construct a JFrame.
+      final JFrame frame = new JFrame("Keyboard and Focus Demo");
+
+      // Transfer the applet's context pane to the JFrame.
+      frame.setContentPane(applet.getContentPane());
+
+      // Transfer the applet's menu bar into the JFrame.
+      // This line can be omitted if the applet
+      // does not create a menu bar.
+      frame.setJMenuBar(applet.getJMenuBar());
+
+      // Make the application shut down when the user clicks
+      // on the close button.
+      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+      // Set the size of the frame.
+      // To pack the frame as tightly as possible
+      // replace the setSize() message with the following.
+      // frame.pack();
+      frame.setSize(800, 600);
+
+      // Set the location of the frame.
+      frame.setLocation(100, 100);
+
+      // Show the frame.
+      frame.setVisible(true);
+
+      // Invoke the applet's start() method.
+      // This line can be omitted if the applet
+      // does not define a start method.
+      applet.start();
+
     }
-    public static void main( String args[] ) {
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        JFrame frame = new JFrame("Fill Polygon");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBackground(Color.white);
-        frame.setSize(1000, 800);
 
-        Wing panel = new Wing();
-
-        frame.add(panel);
-        frame.setVisible(true);      
-    }
 }
