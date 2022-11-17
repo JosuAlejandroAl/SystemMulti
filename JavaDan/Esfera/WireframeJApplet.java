@@ -1,8 +1,5 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import javax.swing.*;
 
 class Point3D {
@@ -25,67 +22,53 @@ public class WireframeJApplet extends JApplet
    int width, height;
    // int mx, my;  // the most recently recorded mouse coordinates
 
-   int azimuth = 0, elevation = 0;
-   int meridianos, paralelos;
-   float radius;
+   int azimuth = 0, elevation = 0, mandarina_slizes, parale;
+   float radio;
 
    Point3D[] vertices;
    Edge[] edges;
+   
 
    boolean focussed = false;   // True when this applet has input focus.
    
    DisplayPanel canvas;  
 
-   static public final float map(int value, 
-                              int istart, 
-                              int istop, 
-                              double ostart, 
-                              double ostop) {
+   public void init(float radioEsfera,int meridiano,int plano) {
 
-                                 float division = (float) (value-istart) / (istop-istart);
-                                 return (float) (ostart + (ostop - ostart) * (division));
-                              }  
+      radio = radioEsfera;
+      mandarina_slizes = 2*meridiano;
+      parale = plano;
+      edges = new Edge[2*mandarina_slizes*parale];
+      int faces = 0;
 
-   public void init(float r,int m,int p) {
+      vertices = new Point3D[(mandarina_slizes+1)*(parale+1)];
+      int cont = 0;
 
-      radius = r;
-      meridianos = 2*m;
-      paralelos = p;
-
-      vertices = new Point3D[(meridianos+1)*(paralelos+1)];
-      int count = 0;
-
-      for(int i = 0; i < paralelos+1; i++){
-         float latitude = map(i,0, paralelos, 0, Math.PI);
-   
-         for(int j = 0; j < meridianos+1; j++) {
-            float longitude = map(j,0,meridianos,0, 2*Math.PI);
+      for(int i = 0; i < parale+1; i++)
+      {
+         float angles = map(i,0, parale, 0, Math.PI);
+         for(int j = 0; j < mandarina_slizes+1; j++) 
+         { // devide the mandarine in half
+            float Flip_angles = map(j,0,mandarina_slizes,0, 2*Math.PI);
+            float x = (float) (radio * Math.sin(angles) * Math.cos(Flip_angles));
+            float y = (float) (radio * Math.sin(angles) * Math.sin(Flip_angles));
+            float z = (float) (radio * Math.cos(angles));
                
-            //convert polar coordinates to cartesian
-            float x = (float) (radius * Math.sin(latitude) * Math.cos(longitude));
-            float y = (float) (radius * Math.sin(latitude) * Math.sin(longitude));
-            float z = (float) (radius * Math.cos(latitude));
-               
-            vertices[count] = new Point3D(x, y, z);
-            count++;
+            vertices[cont] = new Point3D(x, y, z);
+            cont++;
          }
       }
+      cont = 0;
 
-      edges = new Edge[2*meridianos*paralelos];
-      count = 0;
-      int vertex = 0;
-
-      for(int i = 0; i < paralelos; i++){
-         for(int j = 0; j < meridianos; j++) {
-
-            //to left
-            edges[count] = new Edge(vertex, vertex+meridianos+1);
-            count++;
-            edges[count] = new Edge(vertex, vertex+1);
-            count++;
-            vertex++;
+      for(int i = 0; i < parale; i++)
+      {
+         for(int j = 0; j < mandarina_slizes; j++)
+         {
+            edges[cont] = new Edge(faces, faces+mandarina_slizes+1); cont++;
+            edges[cont] = new Edge(faces, faces+1); cont++;
+            faces++;
          }
-         vertex++;
+         faces++;
       }
 
       canvas = new DisplayPanel();  // Create drawing surface and 
@@ -96,6 +79,11 @@ public class WireframeJApplet extends JApplet
       canvas.addMouseListener(this);
       
    } // end init();
+
+   public float map(int Keyset, int verx, int very, double facey, double facex) {
+      float slices = (float) (Keyset-verx) / (very-verx);
+      return (float) (facey + (facex - facey) * (slices));
+   }  
    
    class DisplayPanel extends JPanel {
       public void paintComponent(Graphics g) {
@@ -132,8 +120,8 @@ public class WireframeJApplet extends JApplet
             points = new Point[ vertices.length ];
             int j;
             int scaleFactor = width/8;
-            float near = 20;  // distance from eye to near plane
-            float nearToObj = 7.5f*radius;  // distance from near plane to center of object
+            float near = 3;  // distance from eye to near plane
+            float nearToObj = 1.5f*radio;  // distance from near plane to center of object
             for ( j = 0; j < vertices.length; ++j ) {
                float x0 = vertices[j].x;
                float y0 = vertices[j].y;

@@ -1,5 +1,7 @@
+// Santiago León Salinas A01734958
+// Josué Alejandro Taboada Elvira A01732454
+
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 class Esfera{
       public static void main(String[] args) {
