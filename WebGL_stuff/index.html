@@ -25,10 +25,13 @@
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
+        //texture
+        const TextureLoader = new THREE.TextureLoader();
+        const TextureCube = TextureLoader.load("boxtex.png");
 
         //add geometry
         var geometry = new THREE.BoxGeometry();
-        var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+        var material = new THREE.MeshBasicMaterial({map: TextureCube});
         var cube = new THREE.Mesh(geometry, material);
 
         scene.add(cube);
