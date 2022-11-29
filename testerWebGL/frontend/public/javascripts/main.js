@@ -39,39 +39,42 @@ function doKeyDown(evt){
     }
 }
 
-// three basic components of a scene in java Script ////////////////////////---------------------
+// three basic components of a scene
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.01, 1000);
 var renderer = new THREE.WebGLRenderer();
 
 
-
+//declare the models
 var gs = new THREE.SphereGeometry( 8, 32, 16 );
-var geometry  = new THREE.BoxGeometry(1,1,1); //box geometry
-
-var material  = new THREE.MeshBasicMaterial({color: 0x00ff00}); 
+var geometry  = new THREE.CubeGeometry(1,1,1); 
 
 
 
-var LambertMaterial2 = new THREE.MeshLambertMaterial(
-            {
-                color: 0xFFFF00
-            });
+
+var LambertMaterial2 = new THREE.MeshLambertMaterial({color: 0xFFFF00});
+var material  = new THREE.MeshBasicMaterial({color: 0x00ff00, wireframe: true}); 
+
+// var material = new THREE.MeshLambertMaterial({color: 0x00ff00});
+
+
 
 var object2 = new THREE.Mesh( gs, LambertMaterial2);
 var cube = new THREE.Mesh(geometry, material); 
 
+// var object1 = new THREE.Mesh( geometry, material);
 
 group = new THREE.Object3D();           // create an empty container
 //group.add( object );                    // add a mesh with geometry to it
 group.add( object2 );                   // add a mesh with geometry to it
 
+scene.add(cube); 
 scene.add( group );                     // add the group to the scene
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-camera.position.z = 5;
+camera.position.z = cam_zpos;
 
 // create some point lights
 var pointLight = new THREE.PointLight( 0xFFFFFF );
@@ -84,8 +87,6 @@ pointLight.position.z = 130;
 
 // add to the scene
 scene.add(pointLight);
-scene.add(cube); 
-
 
 // set its position
 pointLight2.position.x = 10;
@@ -136,8 +137,7 @@ var render = async function () {
     // ========================================================
 
     requestAnimationFrame(render);
-    cube.rotation.x += 0.01; 
-    cube.rotation.y += 0.01;                
+    cube.rotation.x += 0.01;                 
     renderer.render(scene, camera);
 };
 
