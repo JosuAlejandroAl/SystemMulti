@@ -12,8 +12,8 @@
     <script>
 		const scene = new THREE.Scene();
 
-const car = createCar();
-scene.add(car);
+const RobotEmptyGroup = createCar();
+scene.add(RobotEmptyGroup);
 
 // Set up lights
 const ambientLight = new THREE.AmbientLight(0xffd700, 0.6);
@@ -55,64 +55,75 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
 renderer.setAnimationLoop(() => {
-  car.rotation.y -= 0.01;
+  RobotEmptyGroup.rotation.y -= 0.01;
   renderer.render(scene, camera);
 });
 
 document.body.appendChild(renderer.domElement);
 
+//%%%%%%%%%%%%%%%          	GROUP CREATED ROBOT EMPTY  (Position in X and Y added)     	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function createCar() {
-  const car = new THREE.Group();
+	
+  const RobotEmptyGroup = new THREE.Group();//Declare the group
 
-  const backWheel = createWheels();
-  backWheel.position.y = 6;
-  backWheel.position.x = -18;
-  car.add(backWheel);
+  const robotEmptyBody = measureRobotEmptyBody(); //body of robot
+  robotEmptyBody.position.y = 1;
+  robotEmptyBody.position.x = 0;
+  robotEmptyBody.position.z = 0;
+  RobotEmptyGroup.add(robotEmptyBody);
 
-  const frontWheel = createWheels();
-  frontWheel.position.y = 6;
-  frontWheel.position.x = 18;
-  car.add(frontWheel);
+  const leftArmRobotEmpty = measureRobotArms(); //left arms
+  leftArmRobotEmpty.position.y = 1;
+  leftArmRobotEmpty.position.x = -3;
+  leftArmRobotEmpty.position.z = 0;
+  RobotEmptyGroup.add(leftArmRobotEmpty);
 
-  const main = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(60, 15, 30),
-    new THREE.MeshLambertMaterial({ color: 0xa52523 })
-  );
-//   main.position.y = 12;
-//   car.add(main);
+  const rightArmRobotEmpty = measureRobotArms(); //rigth arm
+  rightArmRobotEmpty.position.y = 1;
+  rightArmRobotEmpty.position.x = 3;
+  rightArmRobotEmpty.position.z = 0;
+  RobotEmptyGroup.add(rightArmRobotEmpty);
 
-//   const carFrontTexture = getCarFrontTexture();
+  const leftLeverRobotEmpty = measureRobotlevers(); //left lever
+  leftLeverRobotEmpty.position.y = -4;
+  leftLeverRobotEmpty.position.x = -3;
+  leftLeverRobotEmpty.position.z = 4;
+  RobotEmptyGroup.add(leftLeverRobotEmpty);
 
-//   const carBackTexture = getCarFrontTexture();
+  const rightLeverRobotEmpty = measureRobotlevers(); //right lever
+  rightLeverRobotEmpty.position.y = -4;
+  rightLeverRobotEmpty.position.x = 3;
+  rightLeverRobotEmpty.position.z = 4;
+  RobotEmptyGroup.add(rightLeverRobotEmpty);
 
-//   const carRightSideTexture = getCarSideTexture();
-
-//   const carLeftSideTexture = getCarSideTexture();
-//   carLeftSideTexture.center = new THREE.Vector2(0.5, 0.5);
-//   carLeftSideTexture.rotation = Math.PI;
-//   carLeftSideTexture.flipY = false;
-
-//   const cabin = new THREE.Mesh(new THREE.BoxBufferGeometry(33, 12, 24), [
-//     new THREE.MeshLambertMaterial({ map: carFrontTexture }),
-//     new THREE.MeshLambertMaterial({ map: carBackTexture }),
-//     new THREE.MeshLambertMaterial({ color:  0x0000ff }), // top
-//     new THREE.MeshLambertMaterial({ color: 0x7a7a7a }), // bottom
-//     new THREE.MeshLambertMaterial({ map: carRightSideTexture }),
-//     new THREE.MeshLambertMaterial({ map: carLeftSideTexture })
-//   ]);
-//   cabin.position.x = -6;
-//   cabin.position.y = 25.5;
-//   car.add(cabin);
-
-  return car;
+  return RobotEmptyGroup;//finish this group
 }
 
-function createWheels() {
-  const geometry = new THREE.BoxBufferGeometry(12, 12, 33);
-  const material = new THREE.MeshLambertMaterial({ color: 0x00ffff });
-  const wheel = new THREE.Mesh(geometry, material);
+//%%%%%%%%%%%%%%%          	MEASURE FUNTIONS OF ROBOT EMPTY       	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function measureRobotEmptyBody() {
+  const geometry = new THREE.BoxBufferGeometry(5, 15, 5);
+  const material = new THREE.MeshLambertMaterial({ color: 0x800000 });
+  const measRoboEmptBody = new THREE.Mesh(geometry, material);
+  return measRoboEmptBody;
+}
+
+function measureRobotArms(){
+	const geometry = new THREE.BoxBufferGeometry(2, 10, 2);
+  	const material = new THREE.MeshLambertMaterial({ color: 0xC0C0C0 });
+  	const wheel = new THREE.Mesh(geometry, material);
   return wheel;
 }
+
+function measureRobotlevers(){
+	const geometry = new THREE.BoxBufferGeometry(2, 1, 10);
+  	const material = new THREE.MeshLambertMaterial({ color: 0xC0C0C0 });
+  	const wheel = new THREE.Mesh(geometry, material);
+  return wheel;
+}
+
+
 
 function getCarFrontTexture() {
   const canvas = document.createElement("canvas");
@@ -144,25 +155,6 @@ function getCarSideTexture() {
 
   return new THREE.CanvasTexture(canvas);
 }
-
-
-		// 	var scene = new THREE.Scene();
-        // 	scene.background = new THREE.Color(0x2a3b4c);
-
-        // //add camera
-        // 	var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight);
-
-
-		// 	function Car() {
-		// 	const car = new THREE.Group();
-
-		// 	const base = new THREE.Mesh(
-    	// 		new THREE.BoxBufferGeometry(13, 33, 12),
-    	// 		new THREE.MeshLambertMaterial({ color: 0xa52523 })
-		// 	);
-		// 	car.add(base);
-		// 	return car;
-		// }
 
 	</script>
 
