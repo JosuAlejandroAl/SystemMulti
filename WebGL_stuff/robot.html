@@ -12,8 +12,15 @@
     <script>
 		const scene = new THREE.Scene();
 
-const RobotEmptyGroup = createCar();
+// $$$$$$$$$$$$$$$		DELARING GROUPS FOR ROBOT $$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+const RobotEmptyGroup = createRobotEmpty();
 scene.add(RobotEmptyGroup);
+
+
+const RobotBoxGroup = createRobotBox();
+scene.add(RobotBoxGroup);
+
 
 // Set up lights
 const ambientLight = new THREE.AmbientLight(0xffd700, 0.6);
@@ -39,32 +46,29 @@ const camera = new THREE.OrthographicCamera(
 camera.position.set(200, 200, 200);
 camera.lookAt(0, 10, 0);
 
-// var helper = new THREE.CameraHelper(dirLight.shadow.camera);
-// var helper = new THREE.CameraHelper(camera);
-// scene.add(helper);
-
-// const gridHelper = new THREE.GridHelper(80, 8);
-// scene.add(gridHelper);
-
-// const axesHelper = new THREE.AxesHelper(80);
-// scene.add(axesHelper);
-
 // Set up renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
+// 	$$$$$$$$	SOMETHING OF RENDER LET'S SEE IT LATER, ITS IMPORTANT TO DECALRE TWO GROUPS		$$$$$$$$$$$$$$
 renderer.setAnimationLoop(() => {
   RobotEmptyGroup.rotation.y -= 0.01;
   renderer.render(scene, camera);
 });
 
+renderer.setAnimationLoop(() => {
+  RobotBoxGroup.rotation.y -= 0.01;
+  renderer.render(scene, camera);
+});
+
 document.body.appendChild(renderer.domElement);
+
 
 //%%%%%%%%%%%%%%%          	GROUP CREATED ROBOT EMPTY  (Position in X and Y added)     	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function createCar() {
-	
+function createRobotEmpty() {
+
   const RobotEmptyGroup = new THREE.Group();//Declare the group
 
   const robotEmptyBody = measureRobotEmptyBody(); //body of robot
@@ -97,8 +101,16 @@ function createCar() {
   rightLeverRobotEmpty.position.z = 4;
   RobotEmptyGroup.add(rightLeverRobotEmpty);
 
+  const robotCube = measureRobotCube(); //right lever
+  robotCube.position.y = -1;
+  robotCube.position.x = 0;
+  robotCube.position.z = 7;
+  RobotEmptyGroup.add(robotCube);
+
+
   return RobotEmptyGroup;//finish this group
 }
+
 
 //%%%%%%%%%%%%%%%          	MEASURE FUNTIONS OF ROBOT EMPTY       	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -123,37 +135,77 @@ function measureRobotlevers(){
   return wheel;
 }
 
-
-
-function getCarFrontTexture() {
-  const canvas = document.createElement("canvas");
-  canvas.width = 64;
-  canvas.height = 32;
-  const context = canvas.getContext("2d");
-
-  context.fillStyle = "#ffffff";
-  context.fillRect(0, 0, 64, 32);
-
-  context.fillStyle = "#666666";
-  context.fillRect(8, 8, 48, 24);
-
-  return new THREE.CanvasTexture(canvas);
+function measureRobotCube(){
+	const geometry = new THREE.BoxBufferGeometry(6, 6, 6);
+  	const material = new THREE.MeshLambertMaterial({ color: 0xC0C0C0 });
+  	const wheel = new THREE.Mesh(geometry, material);
+  return wheel;
 }
 
-function getCarSideTexture() {
-  const canvas = document.createElement("canvas");
-  canvas.width = 128;
-  canvas.height = 32;
-  const context = canvas.getContext("2d");
 
-  context.fillStyle = "#ffffff";
-  context.fillRect(0, 0, 128, 32);
 
-  context.fillStyle = "#666666";
-  context.fillRect(10, 8, 38, 24);
-  context.fillRect(58, 8, 60, 24);
+//%%%%%%%%%%%%%%%          	GROUP CREATED ROBOT BOXING  (Position in X and Y added)     	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  return new THREE.CanvasTexture(canvas);
+function createRobotBox() {
+
+const RobotBoxGroup = new THREE.Group();//Declare the group
+
+const robotBoxBody = measureRobotBoxBody(); //body of robot
+  robotBoxBody.position.y = 1;
+  robotBoxBody.position.x = 20;
+  robotBoxBody.position.z = 0;
+  RobotBoxGroup.add(robotBoxBody);
+
+  const leftArmRobotBox = measureRobotBoxArms(); //left arms
+  leftArmRobotBox.position.y = 1;
+  leftArmRobotBox.position.x = 23;
+  leftArmRobotBox.position.z = 0;
+  RobotBoxGroup.add(leftArmRobotBox);
+
+  const rightArmRobotBox = measureRobotBoxArms(); //rigth arm
+  rightArmRobotBox.position.y = 1;
+  rightArmRobotBox.position.x = 17;
+  rightArmRobotBox.position.z = 0;
+  RobotBoxGroup.add(rightArmRobotBox);
+
+  const leftLeverRobotBox = measureRobotBoxlevers(); //left lever
+  leftLeverRobotBox.position.y = -4;
+  leftLeverRobotBox.position.x = 23;
+  leftLeverRobotBox.position.z = 4;
+  RobotBoxGroup.add(leftLeverRobotBox);
+
+  const rightLeverRobotBox = measureRobotBoxlevers(); //right lever
+  rightLeverRobotBox.position.y = -4;
+  rightLeverRobotBox.position.x = 17;
+  rightLeverRobotBox.position.z = 4;
+  RobotBoxGroup.add(rightLeverRobotBox);
+
+
+
+return RobotBoxGroup;//finish this group
+}
+
+//%%%%%%%%%%%%%%%          	MEASURE FUNTIONS OF ROBOT WITH BOX       	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function measureRobotBoxBody() {
+  const geometry = new THREE.BoxBufferGeometry(5, 15, 5);
+  const material = new THREE.MeshLambertMaterial({ color: 0x800000 });
+  const measRoboEmptBody = new THREE.Mesh(geometry, material);
+  return measRoboEmptBody;
+}
+
+function measureRobotBoxArms(){
+	const geometry = new THREE.BoxBufferGeometry(2, 10, 2);
+  	const material = new THREE.MeshLambertMaterial({ color: 0xC0C0C0 });
+  	const wheel = new THREE.Mesh(geometry, material);
+  return wheel;
+}
+
+function measureRobotBoxlevers(){
+	const geometry = new THREE.BoxBufferGeometry(2, 1, 10);
+  	const material = new THREE.MeshLambertMaterial({ color: 0xC0C0C0 });
+  	const wheel = new THREE.Mesh(geometry, material);
+  return wheel;
 }
 
 	</script>
