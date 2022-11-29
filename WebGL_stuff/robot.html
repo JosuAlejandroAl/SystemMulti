@@ -37,7 +37,11 @@ scene.add(FourBoxGroup);
 const FiveBoxGroup = CreateFiveBoxes();
 scene.add(FiveBoxGroup);
 
+// $$$$$$$$$$$$$$$		DECLARING GROUPS FOR WALL AND FLOOR $$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
+
+const FloorGroup = createFloor();
+scene.add(FloorGroup);
 
 
 
@@ -338,7 +342,7 @@ function CreateFiveBoxes(){
 
 	const RobotBoxFive = boxBodyFive(); //body of a box
 	RobotBoxFive.position.y = 60;
-	RobotBoxFive.position.x = 13;
+	RobotBoxFive.position.x = 13; //Here i changed broooooo
 	RobotBoxFive.position.z = 45;
 	FiveBoxGroup.add(RobotBoxFive);
 	
@@ -390,15 +394,27 @@ function boxBodyFive(){
 }
 
 
+//*******************************         	FUNTIONS OF Walls AND FLOOR       	*******************************
 
+function createFloor(){
+	const FloorGroup = new THREE.Group();
+	
+	const floor = floorGroup(); //body of a box
+	floor.position.y = -10;
+	floor.position.x = -10;
+	floor.position.z = -10;
+	FloorGroup.add(floor);
 
+	return FloorGroup
+}
 
+function floorGroup(){
+	const geometry = new THREE.BoxBufferGeometry(100, 0.5, 100);
+  	const material = new THREE.MeshLambertMaterial({ color: 0xFFFFFF });
+  	const wheel = new THREE.Mesh(geometry, material);
+  return wheel;
+}
 
-
-
-
-
-//*******************************         	FUNTIONS OF ONE BOX ONLY      	*******************************
 
 
 
