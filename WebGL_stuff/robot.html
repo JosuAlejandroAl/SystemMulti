@@ -51,16 +51,18 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
-// 	$$$$$$$$	SOMETHING OF RENDER LET'S SEE IT LATER, ITS IMPORTANT TO DECALRE TWO GROUPS		$$$$$$$$$$$$$$
-renderer.setAnimationLoop(() => {
-  RobotEmptyGroup.rotation.y -= 0.01;
-  renderer.render(scene, camera);
-});
+// 	$$$$$$$$	SOMETHING OF RENDER LET'S SEE IT LATER, ITS IMPORTANT TO DECALRE TWO GROUPS	And IF WE WANT TO MOVE	$$$$$$$$$$$$$$
+// renderer.setAnimationLoop(() => {
+//   RobotEmptyGroup.rotation.y -= 0.07;
+//   renderer.render(scene, camera);
+// });
 
-renderer.setAnimationLoop(() => {
-  RobotBoxGroup.rotation.y -= 0.01;
-  renderer.render(scene, camera);
-});
+// renderer.setAnimationLoop(() => {
+//   RobotBoxGroup.rotation.y -= 0.01;
+//   renderer.render(scene, camera);
+// });
+
+//texture
 
 document.body.appendChild(renderer.domElement);
 
@@ -101,13 +103,6 @@ function createRobotEmpty() {
   rightLeverRobotEmpty.position.z = 4;
   RobotEmptyGroup.add(rightLeverRobotEmpty);
 
-  const robotCube = measureRobotCube(); //right lever
-  robotCube.position.y = -1;
-  robotCube.position.x = 0;
-  robotCube.position.z = 7;
-  RobotEmptyGroup.add(robotCube);
-
-
   return RobotEmptyGroup;//finish this group
 }
 
@@ -130,13 +125,6 @@ function measureRobotArms(){
 
 function measureRobotlevers(){
 	const geometry = new THREE.BoxBufferGeometry(2, 1, 10);
-  	const material = new THREE.MeshLambertMaterial({ color: 0xC0C0C0 });
-  	const wheel = new THREE.Mesh(geometry, material);
-  return wheel;
-}
-
-function measureRobotCube(){
-	const geometry = new THREE.BoxBufferGeometry(6, 6, 6);
   	const material = new THREE.MeshLambertMaterial({ color: 0xC0C0C0 });
   	const wheel = new THREE.Mesh(geometry, material);
   return wheel;
@@ -180,6 +168,13 @@ const robotBoxBody = measureRobotBoxBody(); //body of robot
   rightLeverRobotBox.position.z = 4;
   RobotBoxGroup.add(rightLeverRobotBox);
 
+  const RobotBox = measureRobotBox(); //right lever
+  RobotBox.position.y = -2;
+  RobotBox.position.x = 20;
+  RobotBox.position.z = 7;
+  RobotBoxGroup.add(RobotBox);
+
+
 
 
 return RobotBoxGroup;//finish this group
@@ -204,6 +199,13 @@ function measureRobotBoxArms(){
 function measureRobotBoxlevers(){
 	const geometry = new THREE.BoxBufferGeometry(2, 1, 10);
   	const material = new THREE.MeshLambertMaterial({ color: 0xC0C0C0 });
+  	const wheel = new THREE.Mesh(geometry, material);
+  return wheel;
+}
+
+function measureRobotBox(){
+	const geometry = new THREE.BoxBufferGeometry(5, 5, 5);
+  	const material = new THREE.MeshLambertMaterial({ color: 0x800080 });
   	const wheel = new THREE.Mesh(geometry, material);
   return wheel;
 }
