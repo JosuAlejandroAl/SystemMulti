@@ -34,6 +34,13 @@ scene.add(ThreeBoxGroup);
 const FourBoxGroup = CreateFourBoxes();
 scene.add(FourBoxGroup);
 
+const FiveBoxGroup = CreateFiveBoxes();
+scene.add(FiveBoxGroup);
+
+
+
+
+
 
 // Set up lights ****************
 const ambientLight = new THREE.AmbientLight(0xffd700, 0.6);
@@ -302,6 +309,42 @@ function CreateFourBoxes(){
 	return FourBoxGroup
 }
 
+function CreateFiveBoxes(){
+	const FiveBoxGroup = new THREE.Group();
+
+	const RobotBoxOne = boxBodyOne(); //body of a box
+	RobotBoxOne.position.y = 40;
+	RobotBoxOne.position.x = 8;
+	RobotBoxOne.position.z = 40;
+	FiveBoxGroup.add(RobotBoxOne);
+
+	const RobotBoxTwo = boxBodyTwo(); //body of a box
+	RobotBoxTwo.position.y = 35;
+	RobotBoxTwo.position.x = 8;
+	RobotBoxTwo.position.z = 40;
+	FiveBoxGroup.add(RobotBoxTwo);
+
+	const RobotBoxThree = boxBodyThree(); //body of a box
+	RobotBoxThree.position.y = 45;
+	RobotBoxThree.position.x = 8;
+	RobotBoxThree.position.z = 40;
+	FiveBoxGroup.add(RobotBoxThree);
+
+	const RobotBoxFour = boxBodyFour(); //body of a box
+	RobotBoxFour.position.y = 50;
+	RobotBoxFour.position.x = 8;
+	RobotBoxFour.position.z = 40;
+	FiveBoxGroup.add(RobotBoxFour);
+
+	const RobotBoxFive = boxBodyFive(); //body of a box
+	RobotBoxFive.position.y = 60;
+	RobotBoxFive.position.x = 13;
+	RobotBoxFive.position.z = 45;
+	FiveBoxGroup.add(RobotBoxFive);
+	
+	return FiveBoxGroup
+}
+
 //@@@@@@@@@@@@@@@@@@@@@@@@@@          	MEASURE FUNTIONS OF ROBOT WITH BOX       	@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 function boxBody(){
@@ -335,6 +378,13 @@ function boxBodyThree(){
 function boxBodyFour(){
 	const geometry = new THREE.BoxBufferGeometry(5, 5, 5);
   	const material = new THREE.MeshLambertMaterial({ color: 0x800080 });
+  	const wheel = new THREE.Mesh(geometry, material);
+  return wheel;
+}
+
+function boxBodyFive(){
+	const geometry = new THREE.BoxBufferGeometry(5, 5, 5);
+  	const material = new THREE.MeshLambertMaterial({ color: 0x00FFFF });
   	const wheel = new THREE.Mesh(geometry, material);
   return wheel;
 }
