@@ -12,14 +12,21 @@
     <script>
 		const scene = new THREE.Scene();
 
-// $$$$$$$$$$$$$$$		DELARING GROUPS FOR ROBOT $$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// $$$$$$$$$$$$$$$		DECLARING GROUPS FOR ROBOT FOR THE SCENE $$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 const RobotEmptyGroup = createRobotEmpty();
 scene.add(RobotEmptyGroup);
 
-
 const RobotBoxGroup = createRobotBox();
 scene.add(RobotBoxGroup);
+
+// $$$$$$$$$$$$$$$		DECLARING GROUPS FOR BOXES FOR THE SCENE $$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+const BoxGroup = oneBox();
+scene.add(BoxGroup);
+
+const TwoBoxGroup = CretaTwoBoxes();
+scene.add(TwoBoxGroup);
 
 
 // Set up lights
@@ -63,7 +70,6 @@ renderer.render(scene, camera);
 // });
 
 //texture
-
 document.body.appendChild(renderer.domElement);
 
 
@@ -106,7 +112,6 @@ function createRobotEmpty() {
   return RobotEmptyGroup;//finish this group
 }
 
-
 //%%%%%%%%%%%%%%%          	MEASURE FUNTIONS OF ROBOT EMPTY       	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function measureRobotEmptyBody() {
@@ -131,18 +136,17 @@ function measureRobotlevers(){
 }
 
 
-
 //%%%%%%%%%%%%%%%          	GROUP CREATED ROBOT BOXING  (Position in X and Y added)     	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function createRobotBox() {
 
 const RobotBoxGroup = new THREE.Group();//Declare the group
 
-const robotBoxBody = measureRobotBoxBody(); //body of robot
-  robotBoxBody.position.y = 1;
-  robotBoxBody.position.x = 20;
-  robotBoxBody.position.z = 0;
-  RobotBoxGroup.add(robotBoxBody);
+const robotboxBody = measureRobotboxBody(); //body of robot
+  robotboxBody.position.y = 1;
+  robotboxBody.position.x = 20;
+  robotboxBody.position.z = 0;
+  RobotBoxGroup.add(robotboxBody);
 
   const leftArmRobotBox = measureRobotBoxArms(); //left arms
   leftArmRobotBox.position.y = 1;
@@ -174,15 +178,12 @@ const robotBoxBody = measureRobotBoxBody(); //body of robot
   RobotBox.position.z = 7;
   RobotBoxGroup.add(RobotBox);
 
-
-
-
 return RobotBoxGroup;//finish this group
 }
 
 //%%%%%%%%%%%%%%%          	MEASURE FUNTIONS OF ROBOT WITH BOX       	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function measureRobotBoxBody() {
+function measureRobotboxBody() {
   const geometry = new THREE.BoxBufferGeometry(5, 15, 5);
   const material = new THREE.MeshLambertMaterial({ color: 0x800000 });
   const measRoboEmptBody = new THREE.Mesh(geometry, material);
@@ -209,6 +210,74 @@ function measureRobotBox(){
   	const wheel = new THREE.Mesh(geometry, material);
   return wheel;
 }
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@          	FUNTIONS OF BOXES UNDER ONE TO ANOTHER      @@@@@@@@@@@@@@@@@@@@@@@@@@@
+function oneBox(){
+	const BoxGroup = new THREE.Group();
+	
+	const RobotBox = boxBody(); //body of a box
+	RobotBox.position.y = 40;
+	RobotBox.position.x = 8;
+	RobotBox.position.z = 20;
+	BoxGroup.add(RobotBox);
+
+	return BoxGroup
+}
+
+function CretaTwoBoxes(){
+	const TwoBoxGroup = new THREE.Group();
+
+	const RobotBoxOne = boxBodyOne(); //body of a box
+	RobotBoxOne.position.y = 60;
+	RobotBoxOne.position.x = 18;
+	RobotBoxOne.position.z = 20;
+	TwoBoxGroup.add(RobotBoxOne);
+
+	const RobotBoxTwo = boxBodyTwo(); //body of a box
+	RobotBoxTwo.position.y = 55;
+	RobotBoxTwo.position.x = 18;
+	RobotBoxTwo.position.z = 20;
+	TwoBoxGroup.add(RobotBoxTwo);
+	
+	return TwoBoxGroup
+}
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@          	MEASURE FUNTIONS OF ROBOT WITH BOX       	@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+function boxBody(){
+	const geometry = new THREE.BoxBufferGeometry(5, 5, 5);
+  	const material = new THREE.MeshLambertMaterial({ color: 0x800080 });
+  	const wheel = new THREE.Mesh(geometry, material);
+  return wheel;
+}
+
+function boxBodyOne(){
+	const geometry = new THREE.BoxBufferGeometry(5, 5, 5);
+  	const material = new THREE.MeshLambertMaterial({ color: 0x800080 });
+  	const wheel = new THREE.Mesh(geometry, material);
+  return wheel;
+}
+
+function boxBodyTwo(){
+	const geometry = new THREE.BoxBufferGeometry(5, 5, 5);
+  	const material = new THREE.MeshLambertMaterial({ color: 0x00FFFF });
+  	const wheel = new THREE.Mesh(geometry, material);
+  return wheel;
+}
+
+
+
+
+
+
+
+
+
+
+//*******************************         	FUNTIONS OF ONE BOX ONLY      	*******************************
+
+
+
 
 	</script>
 
