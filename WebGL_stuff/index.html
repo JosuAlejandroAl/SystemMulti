@@ -25,6 +25,7 @@
         var renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
+        
         //texture
         const TextureLoader = new THREE.TextureLoader();
         const TextureCube = TextureLoader.load("boxtex.png");
