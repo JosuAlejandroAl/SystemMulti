@@ -37,7 +37,7 @@ scene.add(FourBoxGroup);
 const FiveBoxGroup = CreateFiveBoxes();
 scene.add(FiveBoxGroup);
 
-// $$$$$$$$$$$$$$$		DECLARING GROUPS FOR WALL AND FLOOR $$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+// $$$$$$$$$$$$$$$		DECLARING GROUPS FOR FLOOR $$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 
 const FloorGroup = createFloor();
@@ -45,6 +45,24 @@ scene.add(FloorGroup);
 
 const TableGroup = createTable();
 scene.add(TableGroup);
+
+// $$$$$$$$$$$$$$$		DECLARING GROUPS FOR Table with Stacks $$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+const TableBoxGroup = createBoxGroup();
+scene.add(TableBoxGroup)
+
+const TableTwoBoxGroup = createTwoBoxGroup();
+scene.add(TableTwoBoxGroup)
+
+const TableThreeBoxGroup = createThreeBoxGroup();
+scene.add(TableThreeBoxGroup)
+
+const TableFourBoxGroup = createFourBoxGroup();
+scene.add(TableFourBoxGroup)
+
+const TableFiveBoxGroup = createFiveBoxGroup();
+scene.add(TableFiveBoxGroup)
+
 
 
 
@@ -363,7 +381,7 @@ function boxBody(){
 
 function boxBodyOne(){
 	const geometry = new THREE.BoxBufferGeometry(5, 5, 5);
-  	const material = new THREE.MeshLambertMaterial({ color: 0x800080 });
+  	const material = new THREE.MeshLambertMaterial({ color: 0xFF00FF });
   	const wheel = new THREE.Mesh(geometry, material);
   return wheel;
 }
@@ -377,27 +395,27 @@ function boxBodyTwo(){
 
 function boxBodyThree(){
 	const geometry = new THREE.BoxBufferGeometry(5, 5, 5);
-  	const material = new THREE.MeshLambertMaterial({ color: 0x00FFFF });
+  	const material = new THREE.MeshLambertMaterial({ color: 0xF7FE2E });
   	const wheel = new THREE.Mesh(geometry, material);
   return wheel;
 }
 
 function boxBodyFour(){
 	const geometry = new THREE.BoxBufferGeometry(5, 5, 5);
-  	const material = new THREE.MeshLambertMaterial({ color: 0x800080 });
+  	const material = new THREE.MeshLambertMaterial({ color: 0x8000FF});
   	const wheel = new THREE.Mesh(geometry, material);
   return wheel;
 }
 
 function boxBodyFive(){
 	const geometry = new THREE.BoxBufferGeometry(5, 5, 5);
-  	const material = new THREE.MeshLambertMaterial({ color: 0x00FFFF });
+  	const material = new THREE.MeshLambertMaterial({ color: 0x6E6E6E });
   	const wheel = new THREE.Mesh(geometry, material);
   return wheel;
 }
 
 
-//*******************************         	FUNTIONS OF Walls AND FLOOR       	*******************************
+//*******************************         	FUNTIONS OF Tables AND FLOOR       	*******************************
 
 function createFloor(){
 	const FloorGroup = new THREE.Group();
@@ -416,27 +434,240 @@ function createTable(){
 	
 	const tableBase = tableGroup(); //body of a box
 	tableBase.position.y = 4;
-	tableBase.position.x = -40;
+	tableBase.position.x = -38;
 	tableBase.position.z = 30;
 	TableGroup.add(tableBase);
 
 	const tableSoport1 = tableGroupSoport1(); //body of a box
 	tableSoport1.position.y = 1;
-	tableSoport1.position.x = -44.5;
+	tableSoport1.position.x = -42.5;
 	tableSoport1.position.z = 30;
 	TableGroup.add(tableSoport1);
 
 	const tableSoport2 = tableGroupSoport2(); //body of a box
 	tableSoport2.position.y = 1;
-	tableSoport2.position.x = -35.5;
+	tableSoport2.position.x = -33.5;
 	tableSoport2.position.z = 30;
 	TableGroup.add(tableSoport2);
 
 	return TableGroup
 }
 
-//*******************************         	Measure OF Walls AND FLOOR       	*******************************
+//******************************* %%%%%%%%%%%%%%%%%%%%        	FUNTIONS OF Tables with stack of BOXES   	******************************* %%%%%%%%%%%%%%%%%%%%%%%%%%
 
+function createBoxGroup(){
+	const TableBoxGroup = new THREE.Group();
+
+	const tableBase = tableGroup(); //body of a box
+	tableBase.position.y = 4;
+	tableBase.position.x = 4;
+	tableBase.position.z = -35;
+	TableBoxGroup.add(tableBase);
+
+	const tableSoport1 = tableGroupSoport1(); //body of a box
+	tableSoport1.position.y = 1;
+	tableSoport1.position.x = 8.5;
+	tableSoport1.position.z = -35;
+	TableBoxGroup.add(tableSoport1);
+
+	const tableSoport2 = tableGroupSoport2(); //body of a box
+	tableSoport2.position.y = 1;
+	tableSoport2.position.x = -0.5;
+	tableSoport2.position.z = -35;
+	TableBoxGroup.add(tableSoport2);
+
+	const RobotBox = boxBody(); //body of a box
+	RobotBox.position.y = 7;
+	RobotBox.position.x = 4;
+	RobotBox.position.z = -35;
+	TableBoxGroup.add(RobotBox);
+
+	return TableBoxGroup
+}
+
+function createTwoBoxGroup(){
+	const TableTwoBoxGroup = new THREE.Group();
+
+	const tableBase = tableGroup(); //body of a box
+	tableBase.position.y = 4;
+	tableBase.position.x = 44;
+	tableBase.position.z = -35;
+	TableTwoBoxGroup.add(tableBase);
+
+	const tableSoport1 = tableGroupSoport1(); //body of a box
+	tableSoport1.position.y = 1;
+	tableSoport1.position.x = 48.5;
+	tableSoport1.position.z = -35;
+	TableTwoBoxGroup.add(tableSoport1);
+
+	const tableSoport2 = tableGroupSoport2(); //body of a box
+	tableSoport2.position.y = 1;
+	tableSoport2.position.x = 39.5;
+	tableSoport2.position.z = -35;
+	TableTwoBoxGroup.add(tableSoport2);
+
+	const RobotBox = boxBody(); //body of a box
+	RobotBox.position.y = 7;
+	RobotBox.position.x = 44;
+	RobotBox.position.z = -35;
+	TableTwoBoxGroup.add(RobotBox);
+
+	const RobotBoxTwo = boxBodyTwo(); //body of a box
+	RobotBoxTwo.position.y = 12;
+	RobotBoxTwo.position.x = 44;
+	RobotBoxTwo.position.z = -35;
+	TableTwoBoxGroup.add(RobotBoxTwo);
+
+	return TableTwoBoxGroup
+}
+
+function createThreeBoxGroup(){
+	const TableThreeBoxGroup = new THREE.Group();
+
+	const tableBase = tableGroup(); //body of a box
+	tableBase.position.y = 4;
+	tableBase.position.x = -35;
+	tableBase.position.z = 10;
+	TableThreeBoxGroup.add(tableBase);
+
+	const tableSoport1 = tableGroupSoport1(); //body of a box
+	tableSoport1.position.y = 1;
+	tableSoport1.position.x = -39.5;
+	tableSoport1.position.z = 10;
+	TableThreeBoxGroup.add(tableSoport1);
+
+	const tableSoport2 = tableGroupSoport2(); //body of a box
+	tableSoport2.position.y = 1;
+	tableSoport2.position.x = -30.5;
+	tableSoport2.position.z = 10;
+	TableThreeBoxGroup.add(tableSoport2);
+
+	const RobotBox = boxBody(); //body of a box
+	RobotBox.position.y = 7;
+	RobotBox.position.x = -35;
+	RobotBox.position.z = 10;
+	TableThreeBoxGroup.add(RobotBox);
+
+	const RobotBoxTwo = boxBodyTwo(); //body of a box
+	RobotBoxTwo.position.y = 12;
+	RobotBoxTwo.position.x = -35;
+	RobotBoxTwo.position.z = 10;
+	TableThreeBoxGroup.add(RobotBoxTwo);
+
+	const RobotBoxThree = boxBodyThree(); //body of a box
+	RobotBoxThree.position.y = 17;
+	RobotBoxThree.position.x = -35
+	RobotBoxThree.position.z = 10;
+	TableThreeBoxGroup.add(RobotBoxThree);
+
+	return TableThreeBoxGroup
+}
+
+function createFourBoxGroup(){
+	const TableFourBoxGroup = new THREE.Group();
+
+	const tableBase = tableGroup(); //body of a box
+	tableBase.position.y = 4;
+	tableBase.position.x = 30;
+	tableBase.position.z = -35;
+	TableFourBoxGroup.add(tableBase);
+
+	const tableSoport1 = tableGroupSoport1(); //body of a box
+	tableSoport1.position.y = 1;
+	tableSoport1.position.x = 25.5;
+	tableSoport1.position.z = -35;
+	TableFourBoxGroup.add(tableSoport1);
+
+	const tableSoport2 = tableGroupSoport2(); //body of a box
+	tableSoport2.position.y = 1;
+	tableSoport2.position.x = 34.5;
+	tableSoport2.position.z = -35;
+	TableFourBoxGroup.add(tableSoport2);
+
+	const RobotBox = boxBody(); //body of a box
+	RobotBox.position.y = 7;
+	RobotBox.position.x = 30;
+	RobotBox.position.z = -35;
+	TableFourBoxGroup.add(RobotBox);
+
+	const RobotBoxTwo = boxBodyTwo(); //body of a box
+	RobotBoxTwo.position.y = 12;
+	RobotBoxTwo.position.x = 30;
+	RobotBoxTwo.position.z = -35;
+	TableFourBoxGroup.add(RobotBoxTwo);
+
+	const RobotBoxThree = boxBodyThree(); //body of a box
+	RobotBoxThree.position.y = 17;
+	RobotBoxThree.position.x = 30;
+	RobotBoxThree.position.z = -35;
+	TableFourBoxGroup.add(RobotBoxThree);
+
+	const RobotBoxFour = boxBodyFour(); //body of a box
+	RobotBoxFour.position.y = 22;
+	RobotBoxFour.position.x = 30;
+	RobotBoxFour.position.z = -35;
+	TableFourBoxGroup.add(RobotBoxFour);
+
+	return TableFourBoxGroup
+}
+
+
+function createFiveBoxGroup(){
+	const TableFiveBoxGroup = new THREE.Group();
+
+	const tableBase = tableGroup(); //body of a box
+	tableBase.position.y = 4;
+	tableBase.position.x = 17;
+	tableBase.position.z = -35;
+	TableFiveBoxGroup.add(tableBase);
+
+	const tableSoport1 = tableGroupSoport1(); //body of a box
+	tableSoport1.position.y = 1;
+	tableSoport1.position.x = 12.5;
+	tableSoport1.position.z = -35;
+	TableFiveBoxGroup.add(tableSoport1);
+
+	const tableSoport2 = tableGroupSoport2(); //body of a box
+	tableSoport2.position.y = 1;
+	tableSoport2.position.x = 21.5;
+	tableSoport2.position.z = -35;
+	TableFiveBoxGroup.add(tableSoport2);
+
+	const RobotBox = boxBody(); //body of a box
+	RobotBox.position.y = 7;
+	RobotBox.position.x = 17;
+	RobotBox.position.z = -35;
+	TableFiveBoxGroup.add(RobotBox);
+
+	const RobotBoxTwo = boxBodyTwo(); //body of a box
+	RobotBoxTwo.position.y = 12;
+	RobotBoxTwo.position.x = 17;
+	RobotBoxTwo.position.z = -35;
+	TableFiveBoxGroup.add(RobotBoxTwo);
+
+	const RobotBoxThree = boxBodyThree(); //body of a box
+	RobotBoxThree.position.y = 17;
+	RobotBoxThree.position.x = 17;
+	RobotBoxThree.position.z = -35;
+	TableFiveBoxGroup.add(RobotBoxThree);
+
+	const RobotBoxFour = boxBodyFour(); //body of a box
+	RobotBoxFour.position.y = 22;
+	RobotBoxFour.position.x = 17;
+	RobotBoxFour.position.z = -35;
+	TableFiveBoxGroup.add(RobotBoxFour);
+
+	const RobotBoxFive = boxBodyFive(); //body of a box
+	RobotBoxFive.position.y = 27;
+	RobotBoxFive.position.x = 17; //Here i changed broooooo
+	RobotBoxFive.position.z = -35;
+	TableFiveBoxGroup.add(RobotBoxFive);
+
+	return TableFiveBoxGroup
+}
+
+
+//*******************************         	Measure OF Tables AND FLOOR       	*******************************
 
 function floorGroup(){
 	const geometry = new THREE.BoxBufferGeometry(100, 0.5, 100);
@@ -447,21 +678,21 @@ function floorGroup(){
 
 function tableGroupSoport2(){
 	const geometry = new THREE.BoxBufferGeometry(1, 5, 10);
-  	const material = new THREE.MeshLambertMaterial({ color: 0x800080 });
+  	const material = new THREE.MeshLambertMaterial({ color: 0x0040FF });
   	const wheel = new THREE.Mesh(geometry, material);
   return wheel;
 }
 
 function tableGroupSoport1(){
 	const geometry = new THREE.BoxBufferGeometry(1, 5, 10);
-  	const material = new THREE.MeshLambertMaterial({ color: 0x800080 });
+  	const material = new THREE.MeshLambertMaterial({ color: 0x0040FF });
   	const wheel = new THREE.Mesh(geometry, material);
   return wheel;
 }
 
 function tableGroup(){
 	const geometry = new THREE.BoxBufferGeometry(10, 1, 10);
-  	const material = new THREE.MeshLambertMaterial({ color: 0x800080 });
+  	const material = new THREE.MeshLambertMaterial({ color: 0x0040FF });
   	const wheel = new THREE.Mesh(geometry, material);
   return wheel;
 }
