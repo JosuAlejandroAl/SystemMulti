@@ -1,12 +1,17 @@
+//      SCENE SHOWED
 const scene = new THREE.Scene();
 
+// =================================================              CERATION OF THE FUNTIONS MODELS          ================================================= 
+// CAR FUNTIONS
 const car = createCar();
 scene.add(car);
 
-//street model
-
+// STREET FUNTIONS
 const StreetModel = createStreetModel();
 scene.add(StreetModel);
+
+const StreetModel2 = createStreetModel2();
+scene.add(StreetModel2);
 
 // Set up lights
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
@@ -18,7 +23,7 @@ scene.add(dirLight);
 
 // Set up camera
 const aspectRatio = window.innerWidth / window.innerHeight;
-const cameraWidth = 1200;
+const cameraWidth = 2500;
 const cameraHeight = cameraWidth / aspectRatio;
 
 const camera = new THREE.OrthographicCamera(
@@ -29,7 +34,7 @@ const camera = new THREE.OrthographicCamera(
   0, // near plane
   1000 // far plane
 );
-camera.position.set(0, 200, 250);
+camera.position.set(10, 100, 250);
 camera.lookAt(0, 10, 0);
 
 // Set up renderer
@@ -37,12 +42,13 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
-// renderer.setAnimationLoop(() => {
-//   car.rotation.y -= 0.007;
-//   renderer.render(scene, camera);
-// });
+renderer.setAnimationLoop(() => {
+  car.rotation.y -= 0.007;
+  renderer.render(scene, camera);
+});
 
 document.body.appendChild(renderer.domElement);
+// ++++++++++++++++++++++++++++++++++++++              CAR FUNTIONS MODELS     +++++++++++++++++++++++++++++++++++++++++ 
 
 function createCar() {
   const car = new THREE.Group();
@@ -90,26 +96,7 @@ function createCar() {
   return car;
 }
 
-
-function createStreetModel(){
-  const StreetModel = new THREE.Group();
-
-  const dimesionSM = createDimensionStreet();
-  dimesionSM.position.y = 0;
-  dimesionSM.position.x = 0;
-  StreetModel.add(dimesionSM);
-
-  return StreetModel;
-}
-
-//measure 
-function createDimensionStreet() {
-  const geometry = new THREE.BoxBufferGeometry(1000, 3, 90);
-  const material = new THREE.MeshLambertMaterial({ color: 0x8a8a8a });
-  const dimension = new THREE.Mesh(geometry, material);
-  return dimension;
-}
-
+// ++++++++++++++++++++++++++++++++++++++              CAR MEASURE MODELS          ++++++++++++++++++++++++++++++++++++++ 
 
 function createWheels() {
   const geometry = new THREE.BoxBufferGeometry(12, 12, 33);
@@ -147,4 +134,44 @@ function getCarSideTexture() {
   context.fillRect(58, 8, 60, 24);
 
   return new THREE.CanvasTexture(canvas);
+}
+
+// --------------------------------------------------              STREETS FUNTION MODELS          --------------------------------------------------
+
+
+function createStreetModel(){
+  const StreetModel = new THREE.Group();
+
+  const dimesionSM = createDimensionStreet();
+  dimesionSM.position.y = 0;
+  dimesionSM.position.x = 0;
+  StreetModel.add(dimesionSM);
+
+  return StreetModel;
+}
+
+function createStreetModel2(){
+  const StreetModel2 = new THREE.Group();
+
+  const dimesionSM2 = createDimensionStreet2();
+  dimesionSM2.position.y = 0;
+  dimesionSM2.position.x = 0;
+  StreetModel2.add(dimesionSM2);
+
+  return StreetModel2;
+}
+// --------------------------------------------------              STREETS MEASURE MODELS          --------------------------------------------------
+
+function createDimensionStreet() {
+  const geometry = new THREE.BoxBufferGeometry(1000, 3, 90);
+  const material = new THREE.MeshLambertMaterial({ color: 0x8a8a8a });
+  const dimension = new THREE.Mesh(geometry, material);
+  return dimension;
+}
+
+function createDimensionStreet2() {
+  const geometry = new THREE.BoxBufferGeometry(90, 3, 1000);
+  const material = new THREE.MeshLambertMaterial({ color: 0x6cccff });
+  const dimension2 = new THREE.Mesh(geometry, material);
+  return dimension2;
 }
