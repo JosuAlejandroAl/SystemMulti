@@ -1,6 +1,8 @@
 //      SCENE SHOWED
 const scene = new THREE.Scene();
 
+
+
 // =================================================              CERATION OF THE FUNTIONS MODELS          ================================================= 
 // CAR FUNTIONS
 const car = createCar();
@@ -13,6 +15,15 @@ scene.add(StreetModel);
 const StreetModel2 = createStreetModel2();
 scene.add(StreetModel2);
 
+// GRASS FUNTIONS
+
+const CampModel2 = createCampModel2();
+scene.add(CampModel2);
+
+const CampModel = createCampModel();
+scene.add(CampModel);
+
+
 // Set up lights
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
 scene.add(ambientLight);
@@ -23,7 +34,7 @@ scene.add(dirLight);
 
 // Set up camera
 const aspectRatio = window.innerWidth / window.innerHeight;
-const cameraWidth = 2500;
+const cameraWidth = 2000;
 const cameraHeight = cameraWidth / aspectRatio;
 
 const camera = new THREE.OrthographicCamera(
@@ -34,7 +45,7 @@ const camera = new THREE.OrthographicCamera(
   0, // near plane
   1000 // far plane
 );
-camera.position.set(0, 500, 250);
+camera.position.set(100, 250, 300);
 camera.lookAt(0, 10, 0);
 
 // Set up renderer
@@ -42,10 +53,10 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
-renderer.setAnimationLoop(() => {
-  car.rotation.y -= 0.007;
-  renderer.render(scene, camera);
-});
+// renderer.setAnimationLoop(() => {
+//   car.rotation.y -= 0.007;
+//   renderer.render(scene, camera);
+// });
 
 document.body.appendChild(renderer.domElement);
 // ++++++++++++++++++++++++++++++++++++++              CAR FUNTIONS MODELS     +++++++++++++++++++++++++++++++++++++++++ 
@@ -172,6 +183,54 @@ function createDimensionStreet() {
 function createDimensionStreet2() {
   const geometry = new THREE.BoxBufferGeometry(90, 3, 1000);
   const material = new THREE.MeshLambertMaterial({ color: 0x6cccff });
+  const dimension2 = new THREE.Mesh(geometry, material);
+  return dimension2;
+}
+
+
+// --------------------------------------------------              Camp FUNTION MODELS          --------------------------------------------------
+
+
+function createCampModel(){
+  const CampModel = new THREE.Group();
+
+  const dimesionCamp = createDimensionCamp();
+  dimesionCamp.position.y = -10;
+  dimesionCamp.position.x = 300;
+  CampModel.add(dimesionCamp);
+
+  return CampModel;
+}
+
+function createCampModel2(){
+  const CampModel2 = new THREE.Group();
+
+  const dimesionCamp2 = createDimensionCamp();
+  dimesionCamp2.position.y = -10;
+  dimesionCamp2.position.x = -300;
+  CampModel2.add(dimesionCamp2);
+
+  return CampModel2;
+}
+// --------------------------------------------------              Camp MEASURE MODELS          --------------------------------------------------
+
+function createDimensionStreet() {
+  const geometry = new THREE.BoxBufferGeometry(1000, 3, 90);
+  const material = new THREE.MeshLambertMaterial({ color: 0x8a8a8a });
+  const dimension = new THREE.Mesh(geometry, material);
+  return dimension;
+}
+
+function createDimensionStreet2() {
+  const geometry = new THREE.BoxBufferGeometry(90, 3, 1000);
+  const material = new THREE.MeshLambertMaterial({ color: 0x8a8a8a });
+  const dimension2 = new THREE.Mesh(geometry, material);
+  return dimension2;
+}
+
+function createDimensionCamp() {
+  const geometry = new THREE.BoxBufferGeometry(1000, 3, 1100);
+  const material = new THREE.MeshLambertMaterial({ color: 0x8affae });
   const dimension2 = new THREE.Mesh(geometry, material);
   return dimension2;
 }
