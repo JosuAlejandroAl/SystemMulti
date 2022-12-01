@@ -34,7 +34,7 @@ const camera = new THREE.OrthographicCamera(
   0, // near plane
   1000 // far plane
 );
-camera.position.set(10, 100, 250);
+camera.position.set(0, 500, 250);
 camera.lookAt(0, 10, 0);
 
 // Set up renderer
