@@ -197,10 +197,40 @@ function createDimensionStreet2() {
 function createCampModel(){
   const CampModel = new THREE.Group();
 
-  const dimesionCamp = createDimensionCamp();
-  dimesionCamp.position.y = -10;
-  dimesionCamp.position.x = 300;
-  CampModel.add(dimesionCamp);
+  const dimesionCamp2 = createDimensionCamp();
+  dimesionCamp2.position.y = -10;
+  dimesionCamp2.position.x = 300;
+  CampModel.add(dimesionCamp2);
+
+  const dimesionPost2 = createPost();
+  dimesionPost2.position.y = 10;
+  dimesionPost2.position.x = 80;
+  dimesionPost2.position.z = 70;
+  CampModel.add(dimesionPost2);
+
+  const baselight2 = createbaselight2();
+  baselight2.position.y = 45;
+  baselight2.position.x = 70;
+  baselight2.position.z = 70;
+  CampModel.add(baselight2);
+
+  const greenlight2 = createlight();
+  greenlight2.position.y = 45;
+  greenlight2.position.x = 70;
+  greenlight2.position.z = 65;
+  CampModel.add(greenlight2);
+
+  const yellowlight2 = createlight2();
+  yellowlight2.position.y = 45;
+  yellowlight2.position.x = 60;
+  yellowlight2.position.z = 65;
+  CampModel.add(yellowlight2);
+
+  const redlight2 = createlight3();
+  redlight2.position.y = 45;
+  redlight2.position.x = 80;
+  redlight2.position.z = 65;
+  CampModel.add(redlight2);
 
   return CampModel;
 }
@@ -299,6 +329,13 @@ function createlight2() {
 function createlight3() {
   const geometry = new THREE.BoxBufferGeometry(4, 4, 4);
   const material = new THREE.MeshLambertMaterial({ color: 0xff0000 });
+  const dimension2 = new THREE.Mesh(geometry, material);
+  return dimension2;
+}
+
+function createbaselight2() {
+  const geometry = new THREE.BoxBufferGeometry(30, 8, 8);
+  const material = new THREE.MeshLambertMaterial({ color: 0x595959 });
   const dimension2 = new THREE.Mesh(geometry, material);
   return dimension2;
 }
