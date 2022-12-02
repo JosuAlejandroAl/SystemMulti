@@ -34,7 +34,7 @@ scene.add(dirLight);
 
 // Set up camera
 const aspectRatio = window.innerWidth / window.innerHeight;
-const cameraWidth = 800;
+const cameraWidth = 300;
 const cameraHeight = cameraWidth / aspectRatio;
 
 const camera = new THREE.OrthographicCamera(
@@ -45,8 +45,11 @@ const camera = new THREE.OrthographicCamera(
   -1000, // near plane
   1000 // far plane
 );
-camera.position.set(-100, -90, -50);
-camera.lookAt(-10000, -6000, 0);
+camera.position.set(200, -90, -50);
+camera.lookAt(5000, -2000, 2500);
+
+// camera.position.set(-100, -90, -50);
+// camera.lookAt(-5000, -6000, -5000);
 
 // Set up renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -210,6 +213,36 @@ function createCampModel2(){
   dimesionCamp2.position.x = -300;
   CampModel2.add(dimesionCamp2);
 
+  const dimesionPost = createPost();
+  dimesionPost.position.y = 10;
+  dimesionPost.position.x = 80;
+  dimesionPost.position.z = -70;
+  CampModel2.add(dimesionPost);
+
+  const baselight = createbaselight();
+  baselight.position.y = 45;
+  baselight.position.x = 80;
+  baselight.position.z = -55;
+  CampModel2.add(baselight);
+
+  const greenlight = createlight();
+  greenlight.position.y = 45;
+  greenlight.position.x = 70;
+  greenlight.position.z = -65;
+  CampModel2.add(greenlight);
+
+  const yellowlight = createlight2();
+  yellowlight.position.y = 45;
+  yellowlight.position.x = 70;
+  yellowlight.position.z = -55;
+  CampModel2.add(yellowlight);
+
+  const redlight = createlight3();
+  redlight.position.y = 45;
+  redlight.position.x = 70;
+  redlight.position.z = -60;
+  CampModel2.add(redlight);
+
   return CampModel2;
 }
 // --------------------------------------------------              Camp MEASURE MODELS          --------------------------------------------------
@@ -231,6 +264,41 @@ function createDimensionStreet2() {
 function createDimensionCamp() {
   const geometry = new THREE.BoxBufferGeometry(1000, 3, 1100);
   const material = new THREE.MeshLambertMaterial({ color: 0x8affae });
+  const dimension2 = new THREE.Mesh(geometry, material);
+  return dimension2;
+}
+
+function createPost() {
+  const geometry = new THREE.BoxBufferGeometry(8, 80, 8);
+  const material = new THREE.MeshLambertMaterial({ color: 0x595959 });
+  const dimension2 = new THREE.Mesh(geometry, material);
+  return dimension2;
+}
+
+function createbaselight() {
+  const geometry = new THREE.BoxBufferGeometry(8, 8, 30);
+  const material = new THREE.MeshLambertMaterial({ color: 0x595959 });
+  const dimension2 = new THREE.Mesh(geometry, material);
+  return dimension2;
+}
+
+function createlight() {
+  const geometry = new THREE.BoxBufferGeometry(4, 4, 4);
+  const material = new THREE.MeshLambertMaterial({ color: 0x61ff00 });
+  const dimension2 = new THREE.Mesh(geometry, material);
+  return dimension2;
+}
+
+function createlight2() {
+  const geometry = new THREE.BoxBufferGeometry(4, 4, 4);
+  const material = new THREE.MeshLambertMaterial({ color: 0xfffb00 });
+  const dimension2 = new THREE.Mesh(geometry, material);
+  return dimension2;
+}
+
+function createlight3() {
+  const geometry = new THREE.BoxBufferGeometry(4, 4, 4);
+  const material = new THREE.MeshLambertMaterial({ color: 0xff0000 });
   const dimension2 = new THREE.Mesh(geometry, material);
   return dimension2;
 }
