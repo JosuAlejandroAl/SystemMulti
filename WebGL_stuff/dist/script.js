@@ -450,31 +450,31 @@ function createbaselight2() {
   var geometry2 = new THREE.CylinderGeometry(10,40,100,90,2,false);
   var material2 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
   var cone = new THREE.Mesh(geometry2, material2);
-  cone.position.set(500, 40, -80);
+  cone.position.set(400, 40, 180);
   scene.add(cone);
 
   var geometry3 = new THREE.CylinderGeometry(10,40,100,90,2,false);
   var material3 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
   var cone = new THREE.Mesh(geometry3, material3);
-  cone.position.set(150, 40, -250);
+  cone.position.set(350, 40, 100);
   scene.add(cone);
 
   var geometry4 = new THREE.CylinderGeometry(10,40,100,90,20,false);
   var material4 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
   var cone = new THREE.Mesh(geometry4, material4);
-  cone.position.set(-150, 40, 250);
+  cone.position.set(50, 40, 50);
   scene.add(cone);
 
   var geometry5 = new THREE.CylinderGeometry(10,40,100,90,2,false);
   var material5 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
   var cone = new THREE.Mesh(geometry5, material5);
-  cone.position.set(-250, 40, 350);
+  cone.position.set(50, 40, 350);
   scene.add(cone);
 
   var geometry6 = new THREE.CylinderGeometry(10,40,100,90,2,false);
   var material6 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
   var cone = new THREE.Mesh(geometry6, material6);
-  cone.position.set(-150, 40, -450);
+  cone.position.set(100, 40, 450);
   scene.add(cone);
 
   var geometry7 = new THREE.CylinderGeometry(10,40,100,90,2,false);
