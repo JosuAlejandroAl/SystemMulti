@@ -46,7 +46,7 @@ const camera = new THREE.OrthographicCamera(
   10000 // far plane
 );
 
-camera.position.set(-250, 500, 0); //(-250, 500, 0);
+camera.position.set(-250, 350, 0); //(-250, 500, 0);
 camera.lookAt(0, 0, 0);
 
 
@@ -217,32 +217,32 @@ function createCampModel(){
 
   const dimesionPost2 = createPost();
   dimesionPost2.position.y = 10;
-  dimesionPost2.position.x = 80;
-  dimesionPost2.position.z = 70;
+  dimesionPost2.position.x = 200;
+  dimesionPost2.position.z = 300;
   CampModel.add(dimesionPost2);
 
   const baselight2 = createbaselight2();
   baselight2.position.y = 45;
-  baselight2.position.x = 70;
-  baselight2.position.z = 70;
+  baselight2.position.x = 215;
+  baselight2.position.z = 300;
   CampModel.add(baselight2);
 
   const greenlight2 = createlight();
   greenlight2.position.y = 45;
-  greenlight2.position.x = 70;
-  greenlight2.position.z = 65;
+  greenlight2.position.x = 205;
+  greenlight2.position.z = 295;
   CampModel.add(greenlight2);
 
   const yellowlight2 = createlight2();
   yellowlight2.position.y = 45;
-  yellowlight2.position.x = 60;
-  yellowlight2.position.z = 65;
+  yellowlight2.position.x = 215;
+  yellowlight2.position.z = 295;
   CampModel.add(yellowlight2);
 
   const redlight2 = createlight3();
   redlight2.position.y = 45;
-  redlight2.position.x = 80;
-  redlight2.position.z = 65;
+  redlight2.position.x = 225;
+  redlight2.position.z = 295;
   CampModel.add(redlight2);
 
   return CampModel;
@@ -259,32 +259,32 @@ function createCampModel2(){
 
   const dimesionPost = createPost();
   dimesionPost.position.y = 10;
-  dimesionPost.position.x = 80;
-  dimesionPost.position.z = -70;
+  dimesionPost.position.x = 300;
+  dimesionPost.position.z = 200;
   CampModel2.add(dimesionPost);
 
   const baselight = createbaselight();
   baselight.position.y = 45;
-  baselight.position.x = 80;
-  baselight.position.z = -55;
+  baselight.position.x = 300;
+  baselight.position.z = 215;
   CampModel2.add(baselight);
 
   const greenlight = createlight();
   greenlight.position.y = 45;
-  greenlight.position.x = 75;
-  greenlight.position.z = -65;
+  greenlight.position.x = 295;
+  greenlight.position.z = 225;
   CampModel2.add(greenlight);
 
   const yellowlight = createlight2();
   yellowlight.position.y = 45;
-  yellowlight.position.x = 75;
-  yellowlight.position.z = -45;
+  yellowlight.position.x = 295;
+  yellowlight.position.z = 215;
   CampModel2.add(yellowlight);
 
   const redlight = createlight3();
   redlight.position.y = 45;
-  redlight.position.x = 75;
-  redlight.position.z = -55;
+  redlight.position.x = 295;
+  redlight.position.z = 205;
   CampModel2.add(redlight);
 
   return CampModel2;
