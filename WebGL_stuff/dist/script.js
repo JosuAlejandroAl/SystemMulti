@@ -42,10 +42,10 @@ const camera = new THREE.OrthographicCamera(
   cameraWidth / 2, // right
   cameraHeight / 2, // top
   cameraHeight / -2, // bottom
-  0, // near plane
-  1000 // far plane
+  -1000, // near plane
+  10000 // far plane
 );
-camera.position.set(110, 200, 250);
+camera.position.set(-1000, 450, 0);
 camera.lookAt(0, 10, 0);
 
 
@@ -377,7 +377,7 @@ function createbaselight2() {
   var geometry8 = new THREE.ConeGeometry(150, 100, 4);
   var material8 = new THREE.MeshBasicMaterial({color: 0xd0a851});
   var pyramid = new THREE.Mesh(geometry8, material8);
-  pyramid.position.set(200, 40, 200);
+  pyramid.position.set(-200, 40, -250);
   scene.add(pyramid);
 
   // var geometry9 = new THREE.TorusGeometry(-200, 100, 100, 100);
