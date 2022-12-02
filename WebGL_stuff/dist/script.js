@@ -38,15 +38,17 @@ const cameraWidth = 1000;
 const cameraHeight = cameraWidth / aspectRatio;
 
 const camera = new THREE.OrthographicCamera(
-  cameraWidth / -1, // left
-  cameraWidth / 1, // right
-  cameraHeight / 1, // top
-  cameraHeight / -1, // bottom
-  -1000, // near plane
+  cameraWidth / -2, // left
+  cameraWidth / 2, // right
+  cameraHeight / 2, // top
+  cameraHeight / -2, // bottom
+  0, // near plane
   1000 // far plane
 );
-camera.position.set(200, -90, -50);
-camera.lookAt(5000, -1000, 2500);
+camera.position.set(100, 500, 250);
+camera.lookAt(0, 10, 0);
+
+
 
 // camera.position.set(-100, -90, -50);
 // camera.lookAt(-5000, -6000, -5000);
@@ -257,20 +259,20 @@ function createCampModel2(){
 
   const greenlight = createlight();
   greenlight.position.y = 45;
-  greenlight.position.x = 70;
+  greenlight.position.x = 75;
   greenlight.position.z = -65;
   CampModel2.add(greenlight);
 
   const yellowlight = createlight2();
   yellowlight.position.y = 45;
-  yellowlight.position.x = 70;
-  yellowlight.position.z = -55;
+  yellowlight.position.x = 75;
+  yellowlight.position.z = -45;
   CampModel2.add(yellowlight);
 
   const redlight = createlight3();
   redlight.position.y = 45;
-  redlight.position.x = 70;
-  redlight.position.z = -60;
+  redlight.position.x = 75;
+  redlight.position.z = -55;
   CampModel2.add(redlight);
 
   return CampModel2;
