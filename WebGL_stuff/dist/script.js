@@ -45,8 +45,8 @@ const camera = new THREE.OrthographicCamera(
   -1000, // near plane
   10000 // far plane
 );
-camera.position.set(-1000, 450, 0);
-camera.lookAt(0, 10, 0);
+camera.position.set(0, -500, 0);
+camera.lookAt(0, 0, 0);
 
 
 
@@ -180,7 +180,7 @@ function createStreetModel2(){
 // --------------------------------------------------              STREETS MEASURE MODELS          --------------------------------------------------
 
 function createDimensionStreet() {
-  const geometry = new THREE.BoxBufferGeometry(1000, 3, 90);
+  const geometry = new THREE.BoxBufferGeometry(10, 3, 90);
   const material = new THREE.MeshLambertMaterial({ color: 0x8a8a8a });
   const dimension = new THREE.Mesh(geometry, material);
   return dimension;
@@ -202,7 +202,8 @@ function createCampModel(){
 
   const dimesionCamp2 = createDimensionCamp();
   dimesionCamp2.position.y = -10;
-  dimesionCamp2.position.x = 300;
+  dimesionCamp2.position.x = 370;
+  dimesionCamp2.position.z = 250;
   CampModel.add(dimesionCamp2);
 
   const dimesionPost2 = createPost();
@@ -243,7 +244,8 @@ function createCampModel2(){
 
   const dimesionCamp2 = createDimensionCamp();
   dimesionCamp2.position.y = -10;
-  dimesionCamp2.position.x = -300;
+  dimesionCamp2.position.x = 120; //derecha e izquierda
+  dimesionCamp2.position.z = 250; //arriba y abajo
   CampModel2.add(dimesionCamp2);
 
   const dimesionPost = createPost();
@@ -295,7 +297,7 @@ function createDimensionStreet2() {
 }
 
 function createDimensionCamp() {
-  const geometry = new THREE.BoxBufferGeometry(1000, 3, 1100);
+  const geometry = new THREE.BoxBufferGeometry(250, 3, 500);
   const material = new THREE.MeshLambertMaterial({ color: 0x8affae });
   const dimension2 = new THREE.Mesh(geometry, material);
   return dimension2;
@@ -374,10 +376,10 @@ function createbaselight2() {
   cone.position.set(350, 40, 350);
   scene.add(cone);
 
-  var geometry8 = new THREE.ConeGeometry(150, 100, 4);
+  var geometry8 = new THREE.SphereGeometry(20, 10, 40);
   var material8 = new THREE.MeshBasicMaterial({color: 0xd0a851});
   var pyramid = new THREE.Mesh(geometry8, material8);
-  pyramid.position.set(-200, 40, -250);
+  pyramid.position.set(0, 0, 0);
   scene.add(pyramid);
 
   // var geometry9 = new THREE.TorusGeometry(-200, 100, 100, 100);
@@ -394,4 +396,3 @@ function createbaselight2() {
 }
 
 // --------------------------------------------------              Extra ELEMENTS FUNTION MODELS          --------------------------------------------------
-
