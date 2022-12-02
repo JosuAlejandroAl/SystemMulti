@@ -8,6 +8,9 @@ const scene = new THREE.Scene();
 const car = createCar();
 scene.add(car);
 
+const car2 = createCar2();
+scene.add(car2);
+
 // STREET FUNTIONS
 const StreetModel = createStreetModel();
 scene.add(StreetModel);
@@ -159,6 +162,101 @@ function getCarSideTexture() {
 
   return new THREE.CanvasTexture(canvas);
 }
+//????????????????????????????????????****************************$$$$$$$$$$$$$$$$$$$$$$********
+
+function createCar2() {
+  const car2 = new THREE.Group();
+
+  const backWheel = createWheels2();
+  backWheel.position.y = 6;
+  backWheel.position.x = 250;
+  backWheel.position.z = -10;
+  car2.add(backWheel);
+
+  const frontWheel = createWheels2();
+  frontWheel.position.y = 6;
+  frontWheel.position.x = 250;
+  frontWheel.position.z = 20;
+  car2.add(frontWheel);
+
+  const main = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(30, 15, 60),
+    new THREE.MeshLambertMaterial({ color: 0xd500ff })
+  );
+  main.position.y = 12;
+  main.position.x = 250;
+  main.position.z = 11;
+  car2.add(main);
+
+  const carFrontTexture = getCarFrontTexture2();
+
+  const carBackTexture = getCarFrontTexture2();
+
+  const carRightSideTexture = getCarSideTexture2();
+
+  const carLeftSideTexture = getCarSideTexture2();
+  carLeftSideTexture.center = new THREE.Vector2(0.5, 0.5);
+  carLeftSideTexture.rotation = Math.PI;
+  carLeftSideTexture.flipY = false;
+
+  const cabin = new THREE.Mesh(new THREE.BoxBufferGeometry(24, 12, 33), [
+    new THREE.MeshLambertMaterial({ map: carFrontTexture }),
+    new THREE.MeshLambertMaterial({ map: carBackTexture }),
+    new THREE.MeshLambertMaterial({ color: 0xffffff }), // top
+    new THREE.MeshLambertMaterial({ color: 0xffffff }), // bottom
+    new THREE.MeshLambertMaterial({ map: carRightSideTexture }),
+    new THREE.MeshLambertMaterial({ map: carLeftSideTexture })
+  ]);
+  cabin.position.y = 25.5;
+  cabin.position.x = 250;
+  cabin.position.z = 6
+  
+  car2.add(cabin);
+
+  return car2;
+}
+
+// ++++++++++++++++++++++++++++++++++++++              CAR MEASURE MODELS          ++++++++++++++++++++++++++++++++++++++ 
+
+function createWheels2() {
+  const geometry = new THREE.BoxBufferGeometry(33, 12, 12);
+  const material = new THREE.MeshLambertMaterial({ color: 0x333333 });
+  const wheel = new THREE.Mesh(geometry, material);
+  return wheel;
+}
+
+function getCarFrontTexture2() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 64;
+  canvas.height = 32;
+  const context = canvas.getContext("2d");
+
+  context.fillStyle = "#ffffff";
+  context.fillRect(0, 0, 64, 32);
+
+  context.fillStyle = "#666666";
+  context.fillRect(8, 8, 48, 24);
+
+  return new THREE.CanvasTexture(canvas);
+}
+
+function getCarSideTexture2() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 128;
+  canvas.height = 32;
+  const context = canvas.getContext("2d");
+
+  context.fillStyle = "#ffffff";
+  context.fillRect(0, 0, 128, 32);
+
+  context.fillStyle = "#666666";
+  context.fillRect(10, 8, 38, 24);
+  context.fillRect(58, 8, 60, 24);
+
+  return new THREE.CanvasTexture(canvas);
+}
+
+
 
 // --------------------------------------------------              STREETS FUNTION MODELS          --------------------------------------------------
 
