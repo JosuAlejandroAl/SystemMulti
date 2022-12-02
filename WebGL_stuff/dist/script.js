@@ -34,19 +34,19 @@ scene.add(dirLight);
 
 // Set up camera
 const aspectRatio = window.innerWidth / window.innerHeight;
-const cameraWidth = 2000;
+const cameraWidth = 1000;
 const cameraHeight = cameraWidth / aspectRatio;
 
 const camera = new THREE.OrthographicCamera(
-  cameraWidth / -2, // left
-  cameraWidth / 2, // right
-  cameraHeight / 2, // top
-  cameraHeight / -2, // bottom
-  0, // near plane
+  cameraWidth / -1, // left
+  cameraWidth / 1, // right
+  cameraHeight / 1, // top
+  cameraHeight / -1, // bottom
+  -1000, // near plane
   1000 // far plane
 );
-camera.position.set(100, 250, 300);
-camera.lookAt(0, 10, 0);
+camera.position.set(10, 250, 300);
+camera.lookAt(100000, -70000, 0);
 
 // Set up renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true });
