@@ -42,10 +42,11 @@ const camera = new THREE.OrthographicCamera(
   cameraWidth / 2, // right
   cameraHeight / 2, // top
   cameraHeight / -2, // bottom
-  -1000, // near plane
+  0, // near plane
   10000 // far plane
 );
-camera.position.set(0, -500, 0);
+
+camera.position.set(-250, 500, 0); //(-250, 500, 0);
 camera.lookAt(0, 0, 0);
 
 
@@ -58,11 +59,11 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
-renderer.setAnimationLoop(() => {
-  car.rotation.y -= 0.007;
+// renderer.setAnimationLoop(() => {
+//   car.rotation.y -= 0.007;
   
-  renderer.render(scene, camera);
-});
+//   renderer.render(scene, camera);
+// });
 
 document.body.appendChild(renderer.domElement);
 // ++++++++++++++++++++++++++++++++++++++              CAR FUNTIONS MODELS     +++++++++++++++++++++++++++++++++++++++++ 
@@ -73,11 +74,13 @@ function createCar() {
   const backWheel = createWheels();
   backWheel.position.y = 6;
   backWheel.position.x = -18;
+  backWheel.position.z = 250;
   car.add(backWheel);
 
   const frontWheel = createWheels();
   frontWheel.position.y = 6;
   frontWheel.position.x = 18;
+  frontWheel.position.z = 250;
   car.add(frontWheel);
 
   const main = new THREE.Mesh(
@@ -85,6 +88,8 @@ function createCar() {
     new THREE.MeshLambertMaterial({ color: 0xa52523 })
   );
   main.position.y = 12;
+  main.position.x = 0;
+  main.position.z = 250;
   car.add(main);
 
   const carFrontTexture = getCarFrontTexture();
@@ -106,8 +111,10 @@ function createCar() {
     new THREE.MeshLambertMaterial({ map: carRightSideTexture }),
     new THREE.MeshLambertMaterial({ map: carLeftSideTexture })
   ]);
-  cabin.position.x = -6;
   cabin.position.y = 25.5;
+  cabin.position.x = -6;
+  cabin.position.z = 250
+  
   car.add(cabin);
 
   return car;
@@ -161,7 +168,8 @@ function createStreetModel(){
 
   const dimesionSM = createDimensionStreet();
   dimesionSM.position.y = 0;
-  dimesionSM.position.x = 0;
+  dimesionSM.position.x = 240;
+  dimesionSM.position.z = 250;
   StreetModel.add(dimesionSM);
 
   return StreetModel;
@@ -172,26 +180,27 @@ function createStreetModel2(){
 
   const dimesionSM2 = createDimensionStreet2();
   dimesionSM2.position.y = 0;
-  dimesionSM2.position.x = 0;
+  dimesionSM2.position.x = 250;
+  dimesionSM2.position.z = 250;
   StreetModel2.add(dimesionSM2);
 
   return StreetModel2;
 }
 // --------------------------------------------------              STREETS MEASURE MODELS          --------------------------------------------------
 
-function createDimensionStreet() {
-  const geometry = new THREE.BoxBufferGeometry(10, 3, 90);
-  const material = new THREE.MeshLambertMaterial({ color: 0x8a8a8a });
-  const dimension = new THREE.Mesh(geometry, material);
-  return dimension;
-}
+// function createDimensionStreet() {
+//   const geometry = new THREE.BoxBufferGeometry(10, 3, 90);
+//   const material = new THREE.MeshLambertMaterial({ color: 0x8a8a8a });
+//   const dimension = new THREE.Mesh(geometry, material);
+//   return dimension;
+// }
 
-function createDimensionStreet2() {
-  const geometry = new THREE.BoxBufferGeometry(90, 3, 1000);
-  const material = new THREE.MeshLambertMaterial({ color: 0x6cccff });
-  const dimension2 = new THREE.Mesh(geometry, material);
-  return dimension2;
-}
+// function createDimensionStreet2() {
+//   const geometry = new THREE.BoxBufferGeometry(90, 3, 1000);
+//   const material = new THREE.MeshLambertMaterial({ color: 0x6cccff });
+//   const dimension2 = new THREE.Mesh(geometry, material);
+//   return dimension2;
+// }
 
 
 // --------------------------------------------------              Camp FUNTION MODELS          --------------------------------------------------
@@ -283,14 +292,14 @@ function createCampModel2(){
 // --------------------------------------------------              Camp MEASURE MODELS          --------------------------------------------------
 
 function createDimensionStreet() {
-  const geometry = new THREE.BoxBufferGeometry(1000, 3, 90);
+  const geometry = new THREE.BoxBufferGeometry(500, 3, 60);
   const material = new THREE.MeshLambertMaterial({ color: 0x8a8a8a });
   const dimension = new THREE.Mesh(geometry, material);
   return dimension;
 }
 
 function createDimensionStreet2() {
-  const geometry = new THREE.BoxBufferGeometry(90, 3, 1000);
+  const geometry = new THREE.BoxBufferGeometry(60, 3, 500);
   const material = new THREE.MeshLambertMaterial({ color: 0x8a8a8a });
   const dimension2 = new THREE.Mesh(geometry, material);
   return dimension2;
