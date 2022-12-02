@@ -34,7 +34,7 @@ scene.add(dirLight);
 
 // Set up camera
 const aspectRatio = window.innerWidth / window.innerHeight;
-const cameraWidth = 300;
+const cameraWidth = 1000;
 const cameraHeight = cameraWidth / aspectRatio;
 
 const camera = new THREE.OrthographicCamera(
@@ -46,7 +46,7 @@ const camera = new THREE.OrthographicCamera(
   1000 // far plane
 );
 camera.position.set(200, -90, -50);
-camera.lookAt(5000, -2000, 2500);
+camera.lookAt(5000, -1000, 2500);
 
 // camera.position.set(-100, -90, -50);
 // camera.lookAt(-5000, -6000, -5000);
@@ -334,8 +334,49 @@ function createlight3() {
 }
 
 function createbaselight2() {
+
+  var geometry2 = new THREE.CylinderGeometry(10,40,100,160,20,false);
+  var material2 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
+  var cone = new THREE.Mesh(geometry2, material2);
+  cone.position.set(500, 40, -80);
+  scene.add(cone);
+
+  var geometry3 = new THREE.CylinderGeometry(10,40,100,160,20,false);
+  var material3 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
+  var cone = new THREE.Mesh(geometry3, material3);
+  cone.position.set(150, 40, -250);
+  scene.add(cone);
+
+  var geometry4 = new THREE.CylinderGeometry(10,40,100,160,20,false);
+  var material4 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
+  var cone = new THREE.Mesh(geometry4, material4);
+  cone.position.set(-150, 40, 250);
+  scene.add(cone);
+
+  var geometry5 = new THREE.CylinderGeometry(10,40,100,160,20,false);
+  var material5 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
+  var cone = new THREE.Mesh(geometry5, material5);
+  cone.position.set(-250, 40, 350);
+  scene.add(cone);
+
+  var geometry6 = new THREE.CylinderGeometry(10,40,100,160,20,false);
+  var material6 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
+  var cone = new THREE.Mesh(geometry6, material6);
+  cone.position.set(-150, 40, -450);
+  scene.add(cone);
+
+  var geometry7 = new THREE.CylinderGeometry(10,40,100,160,20,false);
+  var material7 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
+  var cone = new THREE.Mesh(geometry7, material7);
+  cone.position.set(350, 40, 350);
+  scene.add(cone);
+
+
   const geometry = new THREE.BoxBufferGeometry(30, 8, 8);
   const material = new THREE.MeshLambertMaterial({ color: 0x595959 });
   const dimension2 = new THREE.Mesh(geometry, material);
   return dimension2;
 }
+
+// --------------------------------------------------              Extra ELEMENTS FUNTION MODELS          --------------------------------------------------
+
