@@ -34,7 +34,7 @@ scene.add(dirLight);
 
 // Set up camera
 const aspectRatio = window.innerWidth / window.innerHeight;
-const cameraWidth = 1000;
+const cameraWidth = 2000;
 const cameraHeight = cameraWidth / aspectRatio;
 
 const camera = new THREE.OrthographicCamera(
@@ -45,7 +45,7 @@ const camera = new THREE.OrthographicCamera(
   0, // near plane
   1000 // far plane
 );
-camera.position.set(100, 500, 250);
+camera.position.set(110, 200, 250);
 camera.lookAt(0, 10, 0);
 
 
@@ -58,10 +58,11 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.render(scene, camera);
 
-// renderer.setAnimationLoop(() => {
-//   car.rotation.y -= 0.007;
-//   renderer.render(scene, camera);
-// });
+renderer.setAnimationLoop(() => {
+  car.rotation.y -= 0.007;
+  
+  renderer.render(scene, camera);
+});
 
 document.body.appendChild(renderer.domElement);
 // ++++++++++++++++++++++++++++++++++++++              CAR FUNTIONS MODELS     +++++++++++++++++++++++++++++++++++++++++ 
@@ -337,41 +338,53 @@ function createlight3() {
 
 function createbaselight2() {
 
-  var geometry2 = new THREE.CylinderGeometry(10,40,100,160,20,false);
+  var geometry2 = new THREE.CylinderGeometry(10,40,100,90,2,false);
   var material2 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
   var cone = new THREE.Mesh(geometry2, material2);
   cone.position.set(500, 40, -80);
   scene.add(cone);
 
-  var geometry3 = new THREE.CylinderGeometry(10,40,100,160,20,false);
+  var geometry3 = new THREE.CylinderGeometry(10,40,100,90,2,false);
   var material3 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
   var cone = new THREE.Mesh(geometry3, material3);
   cone.position.set(150, 40, -250);
   scene.add(cone);
 
-  var geometry4 = new THREE.CylinderGeometry(10,40,100,160,20,false);
+  var geometry4 = new THREE.CylinderGeometry(10,40,100,90,20,false);
   var material4 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
   var cone = new THREE.Mesh(geometry4, material4);
   cone.position.set(-150, 40, 250);
   scene.add(cone);
 
-  var geometry5 = new THREE.CylinderGeometry(10,40,100,160,20,false);
+  var geometry5 = new THREE.CylinderGeometry(10,40,100,90,2,false);
   var material5 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
   var cone = new THREE.Mesh(geometry5, material5);
   cone.position.set(-250, 40, 350);
   scene.add(cone);
 
-  var geometry6 = new THREE.CylinderGeometry(10,40,100,160,20,false);
+  var geometry6 = new THREE.CylinderGeometry(10,40,100,90,2,false);
   var material6 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
   var cone = new THREE.Mesh(geometry6, material6);
   cone.position.set(-150, 40, -450);
   scene.add(cone);
 
-  var geometry7 = new THREE.CylinderGeometry(10,40,100,160,20,false);
+  var geometry7 = new THREE.CylinderGeometry(10,40,100,90,2,false);
   var material7 = new THREE.MeshBasicMaterial({color: 0x00b040, wireframe: true});
   var cone = new THREE.Mesh(geometry7, material7);
   cone.position.set(350, 40, 350);
   scene.add(cone);
+
+  var geometry8 = new THREE.ConeGeometry(150, 100, 4);
+  var material8 = new THREE.MeshBasicMaterial({color: 0xd0a851});
+  var pyramid = new THREE.Mesh(geometry8, material8);
+  pyramid.position.set(200, 40, 200);
+  scene.add(pyramid);
+
+  // var geometry9 = new THREE.TorusGeometry(-200, 100, 100, 100);
+  // var material9 = new THREE.MeshBasicMaterial({color: 0x835a02});
+  // var torus = new THREE.Mesh(geometry9, material9);
+  // torus.position.set(200, 40, 200);
+  // scene.add(torus);
 
 
   const geometry = new THREE.BoxBufferGeometry(30, 8, 8);
